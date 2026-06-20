@@ -182,7 +182,7 @@ nav {
   display: flex;
   align-items: center;
   padding-top: 200px;
-  padding-bottom: 130px;
+  padding-bottom: 80px;
   box-sizing: border-box;
 }
 .hero-bg-texture {
@@ -325,7 +325,7 @@ nav {
   text-transform: uppercase;
   color: var(--white);
   border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.58);
   position: relative;
   z-index: 2;
   transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
@@ -357,7 +357,7 @@ nav {
 .btn-vision:hover .btn-vision-inner {
   color: var(--white);
   border-color: rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.07);
+  background: rgba(0,0,0,0.72);
 }
 .btn-vision:hover .btn-vision-arrow {
   transform: translateX(6px);
@@ -502,15 +502,21 @@ nav {
   border-right: 1px solid var(--grey-800);
   position: relative;
   overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.035),
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 36px rgba(180,180,180,0.06),
+    0 0 70px rgba(120,120,120,0.04);
   transition: box-shadow 0.4s ease, background 0.4s ease;
 }
 .problem-item:hover {
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.04);
   box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.04),
-    0 0 0 1px rgba(255,255,255,0.12),
-    0 0 40px rgba(180,180,180,0.08),
-    0 0 80px rgba(120,120,120,0.05);
+    inset 0 0 34px rgba(255,255,255,0.06),
+    0 0 0 1px rgba(255,255,255,0.16),
+    0 0 46px rgba(180,180,180,0.1),
+    0 0 90px rgba(120,120,120,0.07);
 }
 .problem-item:last-child { border-right: none; }
 .problem-item::before {
@@ -518,7 +524,7 @@ nav {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(to right, transparent, var(--grey-700), transparent);
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.28), transparent);
   transition: opacity 0.4s ease;
 }
 .problem-item:hover::before {
@@ -545,10 +551,11 @@ nav {
 .problem-accent {
   display: block;
   font-family: 'Space Mono', monospace;
-  font-size: clamp(11px, 0.95vw, 14px);
-  letter-spacing: 0.25em;
+  font-size: clamp(16px, 1.45vw, 22px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--grey-300);
+  color: var(--grey-100);
+  text-shadow: 0 0 14px rgba(240,237,232,0.35);
   margin-bottom: 16px;
 }
 
@@ -826,21 +833,28 @@ nav {
 .trial-desc {
   font-size: clamp(13px, 1vw, 16px);
   line-height: 2;
-  color: var(--grey-400);
+  color: var(--grey-300);
+  font-weight: 300;
   max-width: 560px;
   margin: 0 auto 16px;
   letter-spacing: 0.03em;
+}
+.trial-count-highlight {
+  color: var(--white);
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(240,237,232,0.35);
 }
 .trial-why {
   font-family: 'Inter', sans-serif;
   font-size: clamp(10px, 0.85vw, 13px);
   letter-spacing: 0.03em;
   text-transform: none;
-  color: var(--grey-600);
+  color: var(--grey-400);
+  font-weight: 300;
   margin-bottom: 48px;
   line-height: 1.8;
 }
-.trial-why span { color: var(--grey-400); }
+.trial-why span { color: var(--grey-300); }
 .trial-btn {
   display: inline-block;
   font-family: 'Space Mono', monospace;
@@ -1034,6 +1048,13 @@ nav {
   margin-bottom: 40px;
   max-width: 900px;
 }
+.for-who-statement-text .stroke {
+  -webkit-text-stroke: 2px var(--grey-400);
+  color: transparent;
+}
+.for-who-statement-text .filled {
+  color: var(--white);
+}
 .for-who-statement-sub {
   font-family: 'Inter', sans-serif;
   font-size: clamp(15px, 1.2vw, 19px);
@@ -1186,7 +1207,7 @@ footer {
 /* RESPONSIVE */
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
-  .nav-logo img { height: 52px; }
+  .nav-logo img { height: 64px; }
   .nav-links { display: none; }
   #hero { padding-top: 80px; padding-bottom: 90px; }
   .label { white-space: nowrap; font-size: clamp(8px, 2.4vw, 10px); letter-spacing: 0.12em; }
@@ -1214,7 +1235,7 @@ footer {
   #cursor, #cursor-trail { display: none; }
 }
 @media (max-width: 480px) {
-  .nav-logo img { height: 42px; }
+  .nav-logo img { height: 52px; }
   .hero-h1 { font-size: clamp(36px, 13vw, 56px); }
   .hero-sub { font-size: 12px; }
   .eye-glow-ring { width: 220px; height: 220px; }
@@ -1260,7 +1281,7 @@ footer {
       <a href="#problem" class="btn-vision">
         <span class="btn-vision-inner">
           <span class="btn-vision-text">Our Vision For Marketing</span>
-          <span class="btn-vision-arrow">→</span>
+          <span class="btn-vision-arrow">↓</span>
         </span>
         <span class="btn-vision-glow"></span>
         <span class="btn-vision-scan"></span>
@@ -1358,7 +1379,7 @@ footer {
       <span class="t2">DAYS</span>
       <span class="t3">FREE.</span>
     </div>
-    <p class="trial-desc" style="font-size: clamp(15px, 1.2vw, 18px);">We're opening 5 spots for businesses who want to see what Vision can do before spending a dollar. content, ads, automation, strategy — for 15 days at zero cost.</p>
+    <p class="trial-desc" style="font-size: clamp(15px, 1.2vw, 18px);">We're opening <span class="trial-count-highlight">5</span> spots for businesses who want to see what Vision can do before spending a dollar. content, ads, automation, strategy — for 15 days at zero cost.</p>
     <p class="trial-why" style="font-size: clamp(15px, 1.2vw, 18px); color: var(--grey-200);"><span>WHY FREE?</span> — We're new. We have a system we believe in.<br>We'd rather prove it than pitch it.</p>
     <div class="spots-indicator">
       <div class="spot taken"></div>
@@ -1383,7 +1404,7 @@ footer {
     <div class="for-who-statement">
       <div class="for-who-statement-bar"></div>
       <p class="for-who-statement-text">
-        For businesses that know they have more potential<br class="fws-br"> but feel stuck trying to reach the next level.
+        <span class="filled">For businesses that know they have </span><span class="stroke">more potential</span><br class="fws-br"><span class="filled"> but </span><span class="stroke">feel stuck</span><span class="filled"> trying to reach the next level.</span>
       </p>
       <p class="for-who-statement-sub">
         You don't want to spend a fortune chasing trends or guessing what works — you need a clear direction, a stronger position in the market, and a strategy that turns attention into lasting growth.
