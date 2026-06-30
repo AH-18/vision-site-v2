@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import {
   LayoutDashboard, Brain, Megaphone, FileVideo,
-  BarChart2, Users, Crosshair, LineChart, Eye, Settings,
+  BarChart2, Users, Crosshair, LineChart, Eye, Settings, LogOut,
 } from "lucide-react";
 
 const NAV = [
@@ -22,6 +24,22 @@ const NAV = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router   = useRouter();
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user?.email) setEmail(data.user.email);
+    });
+  }, []);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
+
+  const initials = email ? email[0].toUpperCase() : "?";
 
   return (
     <aside style={{
@@ -87,22 +105,18 @@ export default function Sidebar() {
       </nav>
 
       {/* User */}
-      <div style={{ padding: "18px 22px", borderTop: "1px solid var(--border)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <div style={{
-            width: "34px", height: "34px", borderRadius: "50%",
-            background: "var(--gold-dim)",
-            border: "1.5px solid var(--gold-border)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontFamily: "var(--font-bebas)",
-            fontSize: "16px",
-            color: "var(--gold)",
-            letterSpacing: "0.05em",
-          }}>S</div>
-          <div>
-            <div style={{ fontSize: "14px", fontWeight: 600, color: "var(--text)" }}>Sabbah</div>
-            <div style={{ fontFamily: "var(--font-space-mono)", fontSize: "10px", letterSpacing: "0.1em", color: "var(--text-3)", textTransform: "uppercase" }}>Vision Agency</div>
+      <div style={{ padding: "16px 22px", borderTop: "1px solid var(--border)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--gold-dim)", border: "1.5px solid var(--gold-border)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-bebas)", fontSize: 16, color: "var(--gold)", flexShrink: 0 }}>
+            {initials}
           </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{email || "..."}</div>
+            <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 9, letterSpacing: "0.1em", color: "var(--text-3)", textTransform: "uppercase", marginTop: 2 }}>Vision Agency</div>
+          </div>
+          <button onClick={handleLogout} title="Log out" style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--text-3)", padding: 4, display: "flex", alignItems: "center", flexShrink: 0 }}>
+            <LogOut size={14} strokeWidth={1.8} />
+          </button>
         </div>
       </div>
     </aside>

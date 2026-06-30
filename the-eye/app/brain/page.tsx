@@ -82,9 +82,10 @@ export default function BrainPage() {
         ]);
         // Save session + all answers to Supabase
         (async () => {
+          const { data: { user } } = await supabase.auth.getUser();
           const { data: session, error: sessionErr } = await supabase
             .from("brain_sessions")
-            .insert({ completed: true })
+            .insert({ completed: true, user_id: user?.id ?? null })
             .select("id")
             .single();
           if (sessionErr || !session) return;

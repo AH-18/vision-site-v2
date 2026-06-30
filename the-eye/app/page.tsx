@@ -217,10 +217,13 @@ export default function DashboardPage() {
   /* Load AI insights from latest Brain session */
   useEffect(() => {
     (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
       const { data: session, error: sessionErr } = await supabase
         .from("brain_sessions")
         .select("id")
         .eq("completed", true)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(1)
         .single();
