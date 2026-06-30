@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const DOMAINS = [
   { id: "identity", label: "Identity",  icon: "◈", color: "#D7BE69", questions: ["What is your brand name and what do you do — one sentence.", "What makes you different from every competitor in your space?", "If your brand were a person, describe their personality in 3 words."] },
@@ -40,24 +41,79 @@ export default function BrainPage() {
 
   const activeDomain = complete ? DOMAINS.length - 1 : (ALL_Q[currentQ]?.domainIdx ?? 0);
 
-  function submit() {
+  async function submit() {
     const v = input.trim();
     if (!v || thinking || complete) return;
-    setAnswers(a => ({ ...a, [currentQ]: v }));
+    const newAnswers = { ...answers, [currentQ]: v };
+    setAnswers(newAnswers);
     setMessages(m => [...m, { role: "user", text: v }]);
     setInput("");
     setThinking(true);
     const next = currentQ + 1;
-    setTimeout(() => {
+    const currentDomain = DOMAINS[ALL_Q[currentQ].domainIdx];
+
+    try {
+      // Get AI acknowledgment of this answer
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: ALL_Q[currentQ].question,
+          answer: v,
+          domain: currentDomain.label,
+        }),
+      });
+      const { text: ackText, valid } = res.ok ? await res.json() : { text: "Give me a real answer.", valid: false };
+
       setThinking(false);
+
+      // Invalid answer — push back, stay on same question
+      if (!valid) {
+        setAnswers(a => { const copy = { ...a }; delete copy[currentQ]; return copy; });
+        setMessages(m => [...m, { role: "eye", text: ackText }]);
+        return;
+      }
+
       if (next >= ALL_Q.length) {
         setComplete(true);
-        setMessages(m => [...m, { role: "eye", text: "The Brain is fully loaded. I now know your business across all 10 domains. Return to the Overview — The Eye will begin generating insights." }]);
+        setMessages(m => [...m,
+          { role: "eye", text: ackText },
+          { role: "eye", text: "The Brain is fully loaded. I now know your business across all 10 domains. Return to the Overview — The Eye will begin generating insights." },
+        ]);
+        // Save session + all answers to Supabase
+        (async () => {
+          const { data: session, error: sessionErr } = await supabase
+            .from("brain_sessions")
+            .insert({ completed: true })
+            .select("id")
+            .single();
+          if (sessionErr || !session) return;
+          const rows = ALL_Q.map((q, i) => ({
+            session_id: session.id,
+            domain:     DOMAINS[q.domainIdx].id,
+            question:   q.question,
+            answer:     newAnswers[i] ?? "",
+            q_index:    i,
+          }));
+          await supabase.from("brain_answers").insert(rows);
+        })();
       } else {
         setCurrentQ(next);
+        setMessages(m => [...m,
+          { role: "eye", text: ackText },
+          { role: "eye", text: ALL_Q[next].question, qIdx: next },
+        ]);
+      }
+    } catch {
+      setThinking(false);
+      setCurrentQ(next < ALL_Q.length ? next : currentQ);
+      if (next >= ALL_Q.length) {
+        setComplete(true);
+        setMessages(m => [...m, { role: "eye", text: "The Brain is fully loaded. Return to the Overview." }]);
+      } else {
         setMessages(m => [...m, { role: "eye", text: ALL_Q[next].question, qIdx: next }]);
       }
-    }, 1400);
+    }
   }
 
   const progress = Math.round((Object.keys(answers).length / ALL_Q.length) * 100);

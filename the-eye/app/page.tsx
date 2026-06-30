@@ -3,6 +3,7 @@
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useState } from "react";
 import { TrendingUp, AlertTriangle, ArrowRight, Eye, Zap, ShieldAlert } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 /* ─── SCANNING STATUS CYCLE ─── */
 const SCAN_STATES = [
@@ -14,48 +15,23 @@ const SCAN_STATES = [
   "3 SIGNALS DETECTED.",
 ];
 
-/* ─── DATA ─── */
-const OPPORTUNITIES = [
-  {
-    id: "01",
-    title: "Increase educational content",
-    body: "Competitors increased posting 40% this month. Closing the gap generates +14% organic reach.",
-    impact: "+14% reach",
-  },
-  {
-    id: "02",
-    title: "Refine offer positioning",
-    body: "Last 3 hooks led with features not outcomes. Outcome-first language shows 2.1× conversion lift.",
-    impact: "+2.1× conversion",
-  },
-  {
-    id: "03",
-    title: "Launch referral loop",
-    body: "No referral system exists. Brands at your stage with one acquire 22% of clients at zero cost.",
-    impact: "+22% CAC reduction",
-  },
-];
-
-const RISKS = [
-  {
-    id: "01",
-    title: "Posting consistency down 60%",
-    body: "Dropped from 5× to 2× per week. Audience attention window closes in 4 days.",
-    severity: "CRITICAL",
-  },
-  {
-    id: "02",
-    title: "Trust domain score at 68",
-    body: "Lowest of all 10 domains. No testimonials or case studies visible on landing page.",
-    severity: "HIGH",
-  },
-];
-
-const METRICS = [
+/* ─── DEFAULT DATA (shown before Brain is completed) ─── */
+const DEFAULT_METRICS = [
   { label: "Business Health", value: 91, color: "var(--green)" },
   { label: "Brand Position",  value: 92, color: "var(--gold)" },
   { label: "Content Engine",  value: 76, color: "var(--amber)" },
   { label: "Sales Readiness", value: 83, color: "var(--blue)" },
+];
+
+const DEFAULT_OPPORTUNITIES = [
+  { id: "01", title: "Increase educational content", body: "Competitors increased posting 40% this month. Closing the gap generates +14% organic reach.", impact: "+14% reach" },
+  { id: "02", title: "Refine offer positioning", body: "Last 3 hooks led with features not outcomes. Outcome-first language shows 2.1× conversion lift.", impact: "+2.1× conversion" },
+  { id: "03", title: "Launch referral loop", body: "No referral system exists. Brands at your stage with one acquire 22% of clients at zero cost.", impact: "+22% CAC reduction" },
+];
+
+const DEFAULT_RISKS = [
+  { id: "01", title: "Posting consistency down 60%", body: "Dropped from 5× to 2× per week. Audience attention window closes in 4 days.", severity: "CRITICAL" },
+  { id: "02", title: "Trust domain score at 68", body: "Lowest of all 10 domains. No testimonials or case studies visible on landing page.", severity: "HIGH" },
 ];
 
 /* ─── EYE COMPONENT ─── */
@@ -216,9 +192,15 @@ function HudBox({ label, value, color, glitchDelay = "0s", barDelay = 0 }: {
 
 /* ─── PAGE ─── */
 export default function DashboardPage() {
-  const [scanIdx, setScanIdx] = useState(0);
+  const [scanIdx, setScanIdx]         = useState(0);
   const [outputVisible, setOutputVisible] = useState(false);
+  const [aiLoading, setAiLoading]     = useState(false);
+  const [metrics, setMetrics]         = useState(DEFAULT_METRICS);
+  const [opportunities, setOpportunities] = useState(DEFAULT_OPPORTUNITIES);
+  const [risks, setRisks]             = useState(DEFAULT_RISKS);
+  const [headline, setHeadline]       = useState("");
 
+  /* Scan cycle */
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
@@ -230,6 +212,38 @@ export default function DashboardPage() {
       }
     }, 900);
     return () => clearInterval(interval);
+  }, []);
+
+  /* Load AI insights from latest Brain session */
+  useEffect(() => {
+    (async () => {
+      const { data: session, error: sessionErr } = await supabase
+        .from("brain_sessions")
+        .select("id")
+        .eq("completed", true)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+      if (sessionErr || !session) return;
+      setAiLoading(true);
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: session.id }),
+        });
+        const data = await res.json();
+        if (data.error) { console.error("[Eye] analyze error:", data.error); return; }
+        if (data.metrics?.length)       setMetrics(data.metrics.map((m: { label: string; value: string; color: string }) => ({ label: m.label, value: parseInt(String(m.value)), color: m.color })));
+        if (data.opportunities?.length) setOpportunities(data.opportunities.map((o: { title: string; impact: string; action: string }, i: number) => ({ id: String(i+1).padStart(2,"0"), title: o.title, body: o.action, impact: o.impact })));
+        if (data.risks?.length)         setRisks(data.risks.map((r: { title: string; severity: string; action: string }, i: number) => ({ id: String(i+1).padStart(2,"0"), title: r.title, body: r.action, severity: r.severity })));
+        if (data.headline)              setHeadline(data.headline);
+      } catch (e) {
+        console.error("[Eye] fetch error:", e);
+      } finally {
+        setAiLoading(false);
+      }
+    })();
   }, []);
 
   const hour = new Date().getHours();
@@ -349,6 +363,11 @@ export default function DashboardPage() {
             }}>
               {greeting}, Sabbah.
             </h1>
+            {headline && (
+              <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px", letterSpacing: "0.12em", color: "var(--gold)", marginTop: "10px", opacity: 0.85 }}>
+                ◈ {headline}
+              </p>
+            )}
           </motion.div>
         </div>
 
@@ -362,7 +381,7 @@ export default function DashboardPage() {
 
           {/* Left — quick metrics */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "16px", maxWidth: "220px", marginRight: "60px" }}>
-            {METRICS.slice(0, 2).map(({ label, value, color }, i) => (
+            {metrics.slice(0, 2).map(({ label, value, color }, i) => (
               <motion.div key={label}
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -385,7 +404,7 @@ export default function DashboardPage() {
 
           {/* Right — quick metrics */}
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "16px", maxWidth: "220px", marginLeft: "60px" }}>
-            {METRICS.slice(2, 4).map(({ label, value, color }, i) => (
+            {metrics.slice(2, 4).map(({ label, value, color }, i) => (
               <motion.div key={label}
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -421,11 +440,11 @@ export default function DashboardPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                   <Zap size={16} color="var(--green)" strokeWidth={2.2} />
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "0.18em", color: "var(--green)" }}>
-                    {OPPORTUNITIES.length} OPPORTUNITIES DETECTED
+                    {aiLoading ? "ANALYZING..." : `${opportunities.length} OPPORTUNITIES DETECTED`}
                   </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {OPPORTUNITIES.map(({ id, title, body, impact }, i) => (
+                  {opportunities.map(({ id, title, body, impact }, i) => (
                     <motion.div key={id}
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -459,11 +478,11 @@ export default function DashboardPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                   <ShieldAlert size={16} color="var(--red)" strokeWidth={2.2} />
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "0.18em", color: "var(--red)" }}>
-                    {RISKS.length} RISKS DETECTED
+                    {aiLoading ? "ANALYZING..." : `${risks.length} RISKS DETECTED`}
                   </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                  {RISKS.map(({ id, title, body, severity }, i) => (
+                  {risks.map(({ id, title, body, severity }, i) => (
                     <motion.div key={id}
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
