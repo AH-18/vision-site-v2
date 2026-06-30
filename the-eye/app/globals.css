@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  /* Dark base */
+  --bg:        #0d0d0d;
+  --surface:   #1a1a1a;
+  --surface-2: #222222;
+  --border:    #2e2e2e;
+  --border-2:  #3a3a3a;
+
+  /* Text — high contrast, always readable */
+  --text:      #F0EDE8;
+  --text-2:    #B8B4AE;
+  --text-3:    #777770;
+
+  /* Gold — Vision brand */
+  --gold:      #D7BE69;
+  --gold-dim:  rgba(215, 190, 105, 0.15);
+  --gold-border: rgba(215, 190, 105, 0.4);
+
+  /* Signal colors — bright enough to read without hover */
+  --green:     #4ade80;
+  --green-dim: rgba(74, 222, 128, 0.12);
+  --red:       #f87171;
+  --red-dim:   rgba(248, 113, 113, 0.12);
+  --blue:      #60a5fa;
+  --blue-dim:  rgba(96, 165, 250, 0.12);
+  --amber:     #fbbf24;
+  --amber-dim: rgba(251, 191, 36, 0.12);
+
+  /* Typography */
+  --font-display: var(--font-bebas);
+  --font-sans:    var(--font-inter);
+  --font-mono:    var(--font-space-mono);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-bebas);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 400;
+  height: 100%;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+
+::selection { background: rgba(232, 168, 56, 0.2); }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
