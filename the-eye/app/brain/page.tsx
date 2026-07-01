@@ -21,14 +21,14 @@ const DOMAINS = [
 const ALL_Q = DOMAINS.flatMap((d, di) => d.questions.map(q => ({ question: q, domainIdx: di })));
 
 export default function BrainPage() {
-  const [messages, setMessages]   = useState([{ role: "eye", text: ALL_Q[0].question, qIdx: 0 }]);
+  const [messages, setMessages]   = useState<{ role: string; text: string; qIdx?: number }[]>([{ role: "eye", text: ALL_Q[0].question, qIdx: 0 }]);
   const [input, setInput]         = useState("");
   const [currentQ, setCurrentQ]   = useState(0);
   const [thinking, setThinking]   = useState(false);
   const [complete, setComplete]   = useState(false);
-  const [answers, setAnswers]     = useState({});
-  const bottomRef                 = useRef(null);
-  const inputRef                  = useRef(null);
+  const [answers, setAnswers]     = useState<Record<number, string>>({});
+  const bottomRef                 = useRef<HTMLDivElement>(null);
+  const inputRef                  = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, thinking]);
 
@@ -166,9 +166,10 @@ export default function BrainPage() {
         <div style={{ flex:1, overflowY:"auto", padding:"40px 48px", display:"flex", flexDirection:"column", gap:28 }}>
           <AnimatePresence initial={false}>
             {messages.map((msg, i) => {
-              const domainColor = msg.qIdx !== undefined ? DOMAINS[ALL_Q[msg.qIdx].domainIdx]?.color : "var(--gold)";
-              const dLabel = msg.qIdx !== undefined ? DOMAINS[ALL_Q[msg.qIdx].domainIdx]?.label : null;
-              const qNum = msg.qIdx !== undefined ? ALL_Q.filter(q => q.domainIdx === ALL_Q[msg.qIdx].domainIdx).findIndex(q => q.question === ALL_Q[msg.qIdx].question) + 1 : null;
+              const qIdx = msg.qIdx;
+              const domainColor = qIdx !== undefined ? DOMAINS[ALL_Q[qIdx].domainIdx]?.color : "var(--gold)";
+              const dLabel = qIdx !== undefined ? DOMAINS[ALL_Q[qIdx].domainIdx]?.label : null;
+              const qNum = qIdx !== undefined ? ALL_Q.filter(q => q.domainIdx === ALL_Q[qIdx].domainIdx).findIndex(q => q.question === ALL_Q[qIdx].question) + 1 : null;
               return (
                 <motion.div key={i} initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.35 }} style={{ display:"flex", gap:16, alignItems:"flex-start" }}>
                   <div style={{ width:32, height:32, borderRadius:"50%", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", border: msg.role==="eye" ? "1px solid rgba(215,190,105,0.4)" : "1px solid var(--border-2)", background: msg.role==="eye" ? "rgba(215,190,105,0.08)" : "var(--surface)", fontFamily:"var(--font-space-mono)", fontSize:9, color: msg.role==="eye" ? "var(--gold)" : "var(--text-3)" }}>
