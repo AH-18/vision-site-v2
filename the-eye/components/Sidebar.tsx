@@ -49,6 +49,11 @@ export default function Sidebar() {
         {open ? <X size={18} /> : <Menu size={18} />}
       </button>
 
+      {/* Mobile logout — hidden on desktop via CSS */}
+      <button className="sidebar-mobile-logout" onClick={handleLogout} title="Log out">
+        <LogOut size={16} />
+      </button>
+
       {/* Backdrop — only on mobile when open */}
       {open && (
         <div className="sidebar-backdrop" onClick={() => setOpen(false)} />

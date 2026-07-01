@@ -73,12 +73,18 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
   position: sticky;
   top: 0;
 }
 
 /* Hamburger — hidden on desktop */
 .sidebar-hamburger {
+  display: none;
+}
+
+/* Mobile logout — hidden on desktop */
+.sidebar-mobile-logout {
   display: none;
 }
 
@@ -96,6 +102,8 @@ html, body {
     transform: translateX(-100%);
     transition: transform 0.25s ease;
     width: 240px;
+    height: 100vh;
+    height: 100dvh;
   }
   .sidebar-panel.sidebar-open {
     transform: translateX(0);
@@ -111,6 +119,23 @@ html, body {
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--gold);
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .sidebar-mobile-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 101;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-3);
     width: 38px;
     height: 38px;
     cursor: pointer;
