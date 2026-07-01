@@ -60,6 +60,10 @@ html, body {
 
 ::selection { background: rgba(232, 168, 56, 0.2); }
 
+@media (max-width: 767px) {
+  :root { --mobile-top: 66px; }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

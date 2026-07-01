@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${bebasNeue.variable} h-full antialiased`}>
       <body className="h-full flex overflow-hidden" style={{ background: "var(--bg)", color: "var(--text)" }}>
         <Sidebar />
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto" style={{ paddingTop: "var(--mobile-top, 0)" }}>
           {children}
         </main>
       </body>
