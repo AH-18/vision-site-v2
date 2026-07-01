@@ -124,6 +124,18 @@ html, body {
     background: rgba(0,0,0,0.6);
     z-index: 99;
   }
+  .brain-domain-sidebar {
+    display: none !important;
+  }
+  .brain-header {
+    padding: 16px 20px 16px 64px !important;
+  }
+  .brain-messages {
+    padding: 24px 20px !important;
+  }
+  .brain-input-area {
+    padding: 16px 20px !important;
+  }
 }
 
 body {

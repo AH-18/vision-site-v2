@@ -127,7 +127,7 @@ export default function BrainPage() {
       `}</style>
 
       {/* LEFT — DOMAIN TRACKER */}
-      <div style={{ width:240, flexShrink:0, borderRight:"1px solid var(--border)", display:"flex", flexDirection:"column", padding:"32px 0", background:"#0a0a0a" }}>
+      <div className="brain-domain-sidebar" style={{ width:240, flexShrink:0, borderRight:"1px solid var(--border)", display:"flex", flexDirection:"column", padding:"32px 0", background:"#0a0a0a" }}>
         <div style={{ padding:"0 24px 24px", borderBottom:"1px solid var(--border)" }}>
           <div style={{ fontFamily:"var(--font-space-mono)", fontSize:"9px", letterSpacing:"0.25em", color:"var(--text-3)", marginBottom:6 }}>THE BRAIN</div>
           <div style={{ fontFamily:"var(--font-bebas)", fontSize:"22px", color:"var(--gold)", letterSpacing:"0.1em" }}>DOMAIN INTAKE</div>
@@ -155,7 +155,7 @@ export default function BrainPage() {
       {/* MAIN — CONVERSATION */}
       <div style={{ flex:1, display:"flex", flexDirection:"column", overflow:"hidden" }}>
         {/* Header */}
-        <div style={{ padding:"24px 48px", borderBottom:"1px solid var(--border)", display:"flex", alignItems:"center", gap:16, flexShrink:0 }}>
+        <div className="brain-header" style={{ padding:"24px 48px", borderBottom:"1px solid var(--border)", display:"flex", alignItems:"center", gap:16, flexShrink:0 }}>
           <div style={{ width:8, height:8, borderRadius:"50%", background: complete ? "var(--green)" : thinking ? "var(--amber)" : "var(--gold)", boxShadow:`0 0 8px ${complete ? "var(--green)" : thinking ? "var(--amber)" : "var(--gold)"}`, animation: !complete ? "ping 2s ease-in-out infinite" : "none" }} />
           <span style={{ fontFamily:"var(--font-space-mono)", fontSize:11, letterSpacing:"0.2em", color:"var(--gold)" }}>THE EYE · BRAIN INTAKE</span>
           <span style={{ width:24, height:1, background:"var(--border-2)" }} />
@@ -163,7 +163,7 @@ export default function BrainPage() {
         </div>
 
         {/* Messages */}
-        <div style={{ flex:1, overflowY:"auto", padding:"40px 48px", display:"flex", flexDirection:"column", gap:28 }}>
+        <div className="brain-messages" style={{ flex:1, overflowY:"auto", padding:"40px 48px", display:"flex", flexDirection:"column", gap:28 }}>
           <AnimatePresence initial={false}>
             {messages.map((msg, i) => {
               const qIdx = msg.qIdx;
@@ -197,7 +197,7 @@ export default function BrainPage() {
 
         {/* INPUT */}
         {!complete && (
-          <div style={{ flexShrink:0, borderTop:"1px solid var(--border)", padding:"20px 48px", background:"#080808" }}>
+          <div className="brain-input-area" style={{ flexShrink:0, borderTop:"1px solid var(--border)", padding:"20px 48px", background:"#080808" }}>
             <div style={{ display:"flex", gap:16, alignItems:"flex-end", border:"1px solid var(--border-2)", background:"var(--surface)", padding:"14px 18px" }}>
               <textarea ref={inputRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => { if (e.key==="Enter" && !e.shiftKey) { e.preventDefault(); submit(); } }} placeholder="Type your answer..." disabled={thinking} rows={1} style={{ flex:1, background:"transparent", border:"none", outline:"none", color:"var(--text)", fontSize:15, lineHeight:1.6, fontFamily:"inherit", resize:"none", opacity: thinking ? 0.4 : 1 }} />
               <button onClick={submit} disabled={!input.trim() || thinking} style={{ flexShrink:0, width:36, height:36, background: input.trim() && !thinking ? "var(--gold)" : "var(--surface-2)", border:"none", cursor: input.trim() && !thinking ? "pointer" : "default", display:"flex", alignItems:"center", justifyContent:"center", transition:"background 0.2s" }}>
@@ -211,7 +211,7 @@ export default function BrainPage() {
         )}
 
         {complete && (
-          <div style={{ flexShrink:0, borderTop:"1px solid var(--border)", padding:"24px 48px", display:"flex", alignItems:"center", gap:20, background:"rgba(74,222,128,0.04)" }}>
+          <div className="brain-input-area" style={{ flexShrink:0, borderTop:"1px solid var(--border)", padding:"24px 48px", display:"flex", alignItems:"center", gap:20, background:"rgba(74,222,128,0.04)" }}>
             <div style={{ width:8, height:8, borderRadius:"50%", background:"var(--green)", boxShadow:"0 0 10px var(--green)" }} />
             <span style={{ fontFamily:"var(--font-space-mono)", fontSize:11, letterSpacing:"0.15em", color:"var(--green)" }}>BRAIN FULLY LOADED — {ALL_Q.length} ANSWERS STORED</span>
             <a href="/" style={{ marginLeft:"auto", fontFamily:"var(--font-space-mono)", fontSize:11, letterSpacing:"0.15em", color:"var(--gold)", textDecoration:"none", display:"flex", alignItems:"center", gap:6, border:"1px solid var(--gold-border)", padding:"8px 16px" }}>
