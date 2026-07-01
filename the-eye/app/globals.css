@@ -136,6 +136,9 @@ html, body {
   .brain-input-area {
     padding: 16px 20px !important;
   }
+  .opp-risks-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 body {

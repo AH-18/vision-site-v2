@@ -436,7 +436,7 @@ export default function DashboardPage() {
               <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, var(--border))" }} />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+            <div className="opp-risks-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
 
               {/* OPPORTUNITIES */}
               <div>
