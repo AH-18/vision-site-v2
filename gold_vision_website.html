@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VISION® — We See What You Can't</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@200;300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@200;300;400&family=Oswald:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #0d0d0d;
@@ -558,9 +558,9 @@ nav {
 }
 .problem-accent {
   display: block;
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(16px, 1.45vw, 22px);
-  letter-spacing: 0.22em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px, 2vw, 32px);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold);
   text-shadow: 0 0 8px rgba(215,190,105,0.4), 0 0 20px rgba(215,190,105,0.15);
@@ -569,6 +569,11 @@ nav {
 }
 .problem-item:hover .problem-accent {
   text-shadow: 0 0 12px rgba(215,190,105,0.65), 0 0 30px rgba(215,190,105,0.3);
+}
+.problem-emphasis {
+  font-weight: 700;
+  color: var(--white);
+  -webkit-text-stroke: 0.3px rgba(255,255,255,0.6);
 }
 
 /* SECTION EYE */
@@ -739,6 +744,23 @@ nav {
   max-width: 440px;
   margin-bottom: 48px;
   letter-spacing: 0.02em;
+}
+.eye-desc-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px, 1.8vw, 28px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.eye-desc-price {
+  font-weight: 700;
+  color: #ffffff;
+}
+.eye-desc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px, 1.4vw, 22px);
+  letter-spacing: 0.12em;
+  color: var(--gold);
 }
 .eye-domains {
   display: flex;
@@ -1328,17 +1350,17 @@ footer {
     <div class="problem-item">
       <span class="problem-number display">01</span>
       <span class="problem-accent">POSITIONING</span>
-      <p class="problem-text">Most businesses don't have a marketing problem. They have a positioning problem. If customers can't instantly understand why you're different, you're OUT OF COMPETITION.</p>
+      <p class="problem-text">If customers can't instantly understand why you're different, you're <span class="problem-emphasis">OUT OF COMPETITION.</span></p>
     </div>
     <div class="problem-item">
       <span class="problem-number display">02</span>
       <span class="problem-accent">BRAND LANGUAGE</span>
-      <p class="problem-text">Your audience doesn't buy because you describe your business. They buy because you describe their problem. The right words create trust before a sales conversation even begins.</p>
+      <p class="problem-text">The right words <span class="problem-emphasis">create trust</span> before a sales conversation even begins.</p>
     </div>
     <div class="problem-item">
       <span class="problem-number display">03</span>
       <span class="problem-accent">LOYALTY</span>
-      <p class="problem-text">Growth isn't built on one-time purchases. It's built on customers who return, recommend, and believe in your brand. Loyalty is the highest-return marketing asset.</p>
+      <p class="problem-text">Getting customers is easy. <span class="problem-emphasis">Keeping them</span> is the real game.</p>
     </div>
   </div>
 </section>
@@ -1369,7 +1391,7 @@ footer {
         <span class="eye-h2-gold">THE EYE</span>
         <span>DIAGNOSTIC</span>
       </h2>
-      <p class="eye-desc">Before we touch your marketing, we run The Eye — our diagnostic system that maps your brand across 10 domains. We find exactly what's holding you back. Then we fix it. No guessing. No generic strategy. Just clarity.</p>
+      <p class="eye-desc">Before anyone touches your marketing, The Eye maps your entire business — identity, audience, offer, sales, content, ads, threats, and trust. <strong style="color:#ffffff;">It finds exactly what's holding you back.</strong> Then it tells you what to fix first.<br><br><span class="eye-desc-label">Two ways in:</span><br><br><span class="eye-desc-num">01 —</span> Work with Vision as your full marketing team — and access all of The Eye's capabilities for <strong><span class="eye-desc-price">free</span></strong>.<br><br><span class="eye-desc-num">02 —</span> Let The Eye become your 24/7 team on its own — always watching, always ready — for just <strong><span class="eye-desc-price">$295</span></strong>.</p>
       <div class="eye-domains">
         <span class="eye-domain-tag">Identity</span>
         <span class="eye-domain-tag">Audience</span>
@@ -1399,15 +1421,14 @@ footer {
       <span class="t2">DAYS</span>
       <span class="t3">FREE.</span>
     </div>
-    <p class="trial-desc" style="font-size: clamp(15px, 1.2vw, 18px);">We're opening <span class="trial-count-highlight">5</span> spots for businesses who want to see what Vision can do before spending a dollar. content, ads, automation, strategy — for 15 days at zero cost.</p>
-    <p class="trial-why" style="font-size: clamp(15px, 1.2vw, 18px); color: var(--grey-200);"><span>WHY FREE?</span> — We're new. We have a system we believe in.<br>We'd rather prove it than pitch it.</p>
+    <p class="trial-desc" style="font-size: clamp(15px, 1.2vw, 18px);">We're opening <span class="trial-count-highlight">5</span> spots for businesses who want to see what Vision can do before spending a dollar. 15 days at zero cost.</p>
     <div class="spots-indicator">
       <div class="spot taken"></div>
       <div class="spot open"></div>
       <div class="spot open"></div>
     </div>
     <a href="https://instagram.com" target="_blank" class="trial-btn">Apply for Free Trial</a>
-    <!-- <p class="trial-spots">3 spots total · 1 taken · 2 remaining · Coaches & consultants only</p> -->
+    <p class="trial-why" style="font-size: clamp(13px, 1.1vw, 16px); color: var(--grey-400); margin-top: 20px;"><span style="color: var(--grey-200); font-weight: 600;">WHY FREE?</span> — We're new. We have a system we believe in.<br>We'd rather prove it than pitch it.</p>
   </div>
 </section>
 
@@ -1424,7 +1445,7 @@ footer {
     <div class="for-who-statement">
       <div class="for-who-statement-bar"></div>
       <p class="for-who-statement-text">
-        <span class="filled">For businesses that know they have </span><span class="stroke">more potential</span><br class="fws-br"><span class="filled"> but </span><span class="stroke">feel stuck</span><span class="filled"> trying to reach the next level.</span>
+        <span class="filled">For businesses that know they have </span><span class="stroke">more potential</span><span class="filled"> — but </span><span class="stroke">feel stuck</span><span class="filled"> reaching it.</span>
       </p>
       <p class="for-who-statement-sub">
         You don't want to spend a fortune chasing trends or guessing what works — you need a clear direction, a stronger position in the market, and a strategy that turns attention into lasting growth.
