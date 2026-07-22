@@ -29,15 +29,16 @@ export default function Sidebar() {
   const [open, setOpen]   = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user?.email) setEmail(data.user.email);
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session?.user?.email) setEmail(data.session.user.email);
     });
   }, []);
 
   async function handleLogout() {
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
+    try {
+      await supabase.auth.signOut();
+    } catch (_) {}
+    window.location.href = "/login";
   }
 
   const initials = email ? email[0].toUpperCase() : "?";
