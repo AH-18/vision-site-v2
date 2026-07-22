@@ -199,6 +199,7 @@ export default function DashboardPage() {
   const [opportunities, setOpportunities] = useState(DEFAULT_OPPORTUNITIES);
   const [risks, setRisks]             = useState(DEFAULT_RISKS);
   const [headline, setHeadline]       = useState("");
+  const [userName, setUserName]       = useState("there");
 
   /* Scan cycle */
   useEffect(() => {
@@ -217,7 +218,12 @@ export default function DashboardPage() {
   /* Load AI insights from latest Brain session */
   useEffect(() => {
     (async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user ?? null;
+      if (user?.email) {
+        const name = user.email.split("@")[0];
+        setUserName(name.charAt(0).toUpperCase() + name.slice(1));
+      }
       if (!user) return;
       const { data: session, error: sessionErr } = await supabase
         .from("brain_sessions")
@@ -364,7 +370,7 @@ export default function DashboardPage() {
               color: "var(--text)",
               lineHeight: 0.95,
             }}>
-              {greeting}, Sabbah.
+              {greeting}, {userName}.
             </h1>
             {headline && (
               <p style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px", letterSpacing: "0.12em", color: "var(--gold)", marginTop: "10px", opacity: 0.85 }}>
