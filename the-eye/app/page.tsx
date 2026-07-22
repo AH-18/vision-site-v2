@@ -455,7 +455,7 @@ export default function DashboardPage() {
               )}
 
               {/* OPPORTUNITIES */}
-              <div>
+              {hasBrainSession && <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                   <Zap size={16} color="var(--green)" strokeWidth={2.2} />
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "0.18em", color: "var(--green)" }}>
@@ -490,10 +490,10 @@ export default function DashboardPage() {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </div>}
 
               {/* RISKS */}
-              <div>
+              {hasBrainSession && <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                   <ShieldAlert size={16} color="var(--red)" strokeWidth={2.2} />
                   <span style={{ fontFamily: "var(--font-bebas)", fontSize: "22px", letterSpacing: "0.18em", color: "var(--red)" }}>
@@ -556,7 +556,7 @@ export default function DashboardPage() {
                     </p>
                   </motion.div>
                 </div>
-              </div>
+              </div>}
 
             </div>
           </motion.div>
