@@ -225,7 +225,7 @@ export default function DashboardPage() {
         setUserName(name.charAt(0).toUpperCase() + name.slice(1));
       }
       if (!user) return;
-      const { data: session, error: sessionErr } = await supabase
+      const { data: brainSession, error: sessionErr } = await supabase
         .from("brain_sessions")
         .select("id")
         .eq("completed", true)
@@ -233,13 +233,13 @@ export default function DashboardPage() {
         .order("created_at", { ascending: false })
         .limit(1)
         .single();
-      if (sessionErr || !session) return;
+      if (sessionErr || !brainSession) return;
       setAiLoading(true);
       try {
         const res = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ session_id: session.id }),
+          body: JSON.stringify({ session_id: brainSession.id }),
         });
         const data = await res.json();
         if (data.error) { console.error("[Eye] analyze error:", data.error); return; }
