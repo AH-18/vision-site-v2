@@ -200,6 +200,7 @@ export default function DashboardPage() {
   const [risks, setRisks]             = useState(DEFAULT_RISKS);
   const [headline, setHeadline]       = useState("");
   const [userName, setUserName]       = useState("there");
+  const [hasBrainSession, setHasBrainSession] = useState<boolean | null>(null);
 
   /* Scan cycle */
   useEffect(() => {
@@ -224,7 +225,7 @@ export default function DashboardPage() {
         const name = user.email.split("@")[0];
         setUserName(name.charAt(0).toUpperCase() + name.slice(1));
       }
-      if (!user) return;
+      if (!user) { setHasBrainSession(false); return; }
       const { data: brainSession, error: sessionErr } = await supabase
         .from("brain_sessions")
         .select("id")
@@ -233,7 +234,8 @@ export default function DashboardPage() {
         .order("created_at", { ascending: false })
         .limit(1)
         .single();
-      if (sessionErr || !brainSession) return;
+      if (sessionErr || !brainSession) { setHasBrainSession(false); return; }
+      setHasBrainSession(true);
       setAiLoading(true);
       try {
         const res = await fetch("/api/analyze", {
@@ -443,6 +445,14 @@ export default function DashboardPage() {
             </div>
 
             <div className="opp-risks-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+
+              {hasBrainSession === false && (
+                <div style={{ gridColumn: "1 / -1", padding: "48px 32px", border: "1px solid var(--border)", textAlign: "center" }}>
+                  <div style={{ fontFamily: "var(--font-bebas)", fontSize: "28px", letterSpacing: "0.15em", color: "var(--gold)", marginBottom: "12px" }}>NO DATA YET</div>
+                  <div style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px", color: "var(--text-3)", letterSpacing: "0.08em", marginBottom: "24px" }}>Complete a Brain session to generate your Eye report.</div>
+                  <a href="/brain" style={{ fontFamily: "var(--font-space-mono)", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--black)", background: "var(--gold)", padding: "12px 28px", textDecoration: "none" }}>START BRAIN SESSION →</a>
+                </div>
+              )}
 
               {/* OPPORTUNITIES */}
               <div>
