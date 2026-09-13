@@ -482,10 +482,15 @@ nav {
 
 /* SECTION PROBLEM */
 #problem {
-  padding: 140px 48px;
+  padding: 100px 48px;
   background:
-    linear-gradient(rgba(5, 7, 10, 0.86), rgba(5, 7, 10, 0.82)),
-    url('background.png') center center / cover no-repeat;
+    radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.6) 100%),
+    radial-gradient(circle at 18% 20%, rgba(131,58,180,0.10), transparent 42%),
+    radial-gradient(circle at 82% 18%, rgba(253,29,29,0.07), transparent 45%),
+    radial-gradient(circle at 55% 92%, rgba(247,119,55,0.06), transparent 50%),
+    radial-gradient(ellipse 60% 80% at 70% 50%, rgba(40,40,40,0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(20,20,20,0.8) 0%, transparent 60%),
+    var(--black);
   border-top: 1px solid var(--grey-800);
 }
 .problem-headline {
@@ -494,7 +499,7 @@ nav {
   line-height: 0.9;
   letter-spacing: 0.02em;
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 56px;
   position: relative;
 }
 .problem-headline .stroke {
@@ -504,92 +509,85 @@ nav {
 .problem-headline .filled {
   color: var(--white);
 }
-.problem-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 1px solid var(--grey-800);
-  margin-top: 60px;
-}
-.problem-item {
-  padding: 48px 40px;
-  border-right: 1px solid var(--grey-800);
+.problem-list {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  overflow: hidden;
+}
+.problem-list::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(131,58,180,0.35), rgba(225,48,108,0.45), rgba(247,119,55,0.35), transparent);
+}
+.problem-point {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px 18px 26px;
+  border-radius: 6px;
+  transition: background 0.35s ease;
+}
+.problem-point:hover {
   background: rgba(255,255,255,0.02);
-  box-shadow:
-    inset 0 0 30px rgba(255,255,255,0.035),
-    0 0 0 1px rgba(255,255,255,0.08),
-    0 0 36px rgba(180,180,180,0.06),
-    0 0 70px rgba(120,120,120,0.04);
-  transition: box-shadow 0.4s ease, background 0.4s ease;
 }
-.problem-item:hover {
-  background: rgba(225,48,108,0.03);
-  box-shadow:
-    inset 0 0 34px rgba(225,48,108,0.05),
-    0 0 0 1px rgba(225,48,108,0.15),
-    0 0 46px rgba(225,48,108,0.08),
-    0 0 90px rgba(225,48,108,0.04);
-}
-.problem-item:last-child { border-right: none; }
-.problem-item::before {
+.problem-point::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(to right, transparent, rgba(225,48,108,0.35), transparent);
-  transition: opacity 0.4s ease;
-}
-.problem-item:hover::before {
-  background: linear-gradient(to right, transparent, rgba(225,48,108,0.65), transparent);
-}
-.problem-number {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 72px;
-  line-height: 1;
-  margin-bottom: 24px;
-  display: inline-block;
+  left: 0; top: 10px; bottom: 10px;
+  width: 3px;
+  border-radius: 2px;
   background: var(--insta-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(225,48,108,0.5), 0 0 22px rgba(225,48,108,0.2);
-  transition: text-shadow 0.4s ease, filter 0.4s ease;
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
 }
-.problem-item:hover .problem-number {
-  filter: brightness(1.15);
-  text-shadow: 0 0 14px rgba(225,48,108,0.7), 0 0 35px rgba(225,48,108,0.35);
+.problem-point:hover::before {
+  opacity: 0.9;
+}
+.problem-point::after {
+  content: '';
+  position: absolute;
+  left: 26px; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(to right, rgba(131,58,180,0.35), rgba(225,48,108,0.4), rgba(247,119,55,0.3), transparent);
+}
+.problem-bullet {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--insta-gradient);
+  box-shadow: 0 0 10px rgba(225,48,108,0.55), 0 0 22px rgba(253,29,29,0.25);
+  flex-shrink: 0;
+  transition: box-shadow 0.35s ease;
+}
+.problem-bullet::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--black);
+}
+.problem-point:hover .problem-bullet {
+  box-shadow: 0 0 14px rgba(225,48,108,0.75), 0 0 32px rgba(253,29,29,0.35);
 }
 .problem-text {
-  font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.9;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.5;
   color: var(--grey-100);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
 }
-.problem-accent {
-  display: inline-block;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(22px, 2vw, 32px);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+.problem-highlight {
+  font-weight: 700;
   background: var(--insta-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  text-shadow: 0 0 8px rgba(225,48,108,0.4), 0 0 20px rgba(225,48,108,0.15);
-  margin-bottom: 16px;
-  transition: text-shadow 0.4s ease;
-}
-.problem-item:hover .problem-accent {
-  text-shadow: 0 0 12px rgba(225,48,108,0.65), 0 0 30px rgba(225,48,108,0.3);
-}
-.problem-emphasis {
-  font-weight: 700;
-  color: var(--white);
-  -webkit-text-stroke: 0.3px rgba(255,255,255,0.6);
+  text-shadow: 0 0 12px rgba(225,48,108,0.4), 0 0 26px rgba(253,29,29,0.2);
 }
 
 /* SECTION EYE */
@@ -1314,8 +1312,7 @@ footer {
   .hero-eyebrow .label { text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
   .hero-buttons { margin-bottom: 0 !important; }
   #problem { padding: 80px 24px; }
-  .problem-grid { grid-template-columns: 1fr; }
-  .problem-item { border-right: none; border-bottom: 1px solid var(--grey-800); }
+  .problem-point { gap: 14px; padding: 14px 14px 14px 20px; }
   #eye-section { padding: 80px 24px; }
   .eye-layout { grid-template-columns: 1fr; gap: 48px; }
   .eye-visual { justify-content: center; }
@@ -1400,26 +1397,25 @@ footer {
 <!-- PROBLEM -->
 <section id="problem">
   <div class="problem-headline display">
-    <span class="stroke">WE DON'T DO</span>
-    <span class="filled">TRENDY MARKETING,</span>
-    <span class="stroke">WE BUILD LONG LASTING BRANDS.</span>
+    <span class="filled">VISION PLATFORM</span>
+    <span class="stroke">IS FOR THOSE WHO</span>
   </div>
-  <div class="problem-grid">
-    <div class="problem-item">
-      <span class="problem-number display">01</span>
-      <span class="problem-accent">POSITIONING</span>
-      <p class="problem-text">If customers can't instantly understand why you're different, you're <span class="problem-emphasis">OUT OF COMPETITION.</span></p>
+  <div class="problem-list">
+    <div class="problem-point">
+      <span class="problem-bullet"></span>
+      <p class="problem-text">Post everyday but still feel <span class="problem-highlight">invisible</span>.</p>
     </div>
-    <div class="problem-item">
-      <span class="problem-number display">02</span>
-      <span class="problem-accent">BRAND LANGUAGE</span>
-      <p class="problem-text">The right words <span class="problem-emphasis">create trust</span> before a sales conversation even begins.</p>
+    <div class="problem-point">
+      <span class="problem-bullet"></span>
+      <p class="problem-text">Tried every tip &amp; trick but still got <span class="problem-highlight">no results</span>.</p>
     </div>
-    <div class="problem-item">
-      <span class="problem-number display">03</span>
-      <span class="problem-accent">LOYALTY</span>
-      <p class="problem-text">Getting customers is easy. <span class="problem-emphasis">Keeping them</span> is the real game.</p>
+    <div class="problem-point">
+      <span class="problem-bullet"></span>
+      <p class="problem-text">Thought about <span class="problem-highlight">quitting</span> because of inconsistency of their pages.</p>
     </div>
+  </div>
+  <div style="text-align: center; margin-top: 56px;">
+    <a href="#eye-section" class="btn-primary">Access The Platform</a>
   </div>
 </section>
 
