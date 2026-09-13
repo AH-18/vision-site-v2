@@ -23,11 +23,14 @@
   --white: #f0ede8;
   --glow: rgba(240,237,232,0.15);
   --glow-strong: rgba(240,237,232,0.4);
-  --gold: #D7BE69;
-  --gold-light: #E5CF88;
-  --gold-dim: #9A8840;
-  --gold-glow: rgba(215,190,105,0.2);
-  --gold-glow-strong: rgba(215,190,105,0.55);
+  /* Instagram-style accent: pink primary, orange lighter/hover */
+  --gold: #E1306C;
+  --gold-light: #FD8D3C;
+  --gold-dim: #B0205C;
+  --gold-glow: rgba(225,48,108,0.2);
+  --gold-glow-strong: rgba(225,48,108,0.55);
+  /* real Instagram icon gradient: purple -> pink -> red -> orange -> yellow */
+  --insta-gradient: linear-gradient(45deg, #833AB4 0%, #C13584 25%, #E1306C 50%, #FD1D1D 65%, #F77737 80%, #FCAF45 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,13 +70,13 @@ body {
 }
 #cursor.hover {
   transform: translate(-50%, -50%) scale(3);
-  background: rgba(215,190,105,0.1);
+  background: rgba(225,48,108,0.1);
   box-shadow: 0 0 20px var(--gold-glow-strong);
 }
 #cursor-trail {
   position: fixed;
   width: 40px; height: 40px;
-  border: 1px solid rgba(215,190,105,0.2);
+  border: 1px solid rgba(225,48,108,0.2);
   border-radius: 50%;
   pointer-events: none;
   z-index: 99998;
@@ -167,14 +170,14 @@ nav {
   font-size: clamp(10px, 0.85vw, 13px);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--black);
-  background: var(--gold);
+  color: var(--white);
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), var(--insta-gradient);
   padding: 10px 20px;
   text-decoration: none;
-  transition: background 0.3s, color 0.3s;
+  transition: filter 0.3s, color 0.3s;
 }
 .nav-cta:hover {
-  background: var(--gold-light);
+  filter: brightness(1.15);
 }
 
 /* HERO */
@@ -227,8 +230,8 @@ nav {
 }
 .hero-eyebrow-line {
   width: 40px;
-  height: 1px;
-  background: var(--gold-dim);
+  height: 2px;
+  background: var(--insta-gradient);
 }
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
@@ -256,8 +259,15 @@ nav {
   line-height: 1.8;
   max-width: 380px;
   margin-bottom: 48px;
-  border-left: 1px solid var(--gold-dim);
+  position: relative;
   padding-left: 20px;
+}
+.hero-sub::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #833AB4, #C13584, #E1306C, #FD1D1D, #F77737, #FCAF45);
 }
 .hero-buttons {
   display: flex;
@@ -270,15 +280,15 @@ nav {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--black);
-  background: var(--gold);
+  background: var(--insta-gradient);
   padding: 16px 32px;
   text-decoration: none;
   border: none;
   cursor: none;
-  transition: background 0.3s, box-shadow 0.3s;
+  transition: filter 0.3s, box-shadow 0.3s;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 18px rgba(215,190,105,0.45), 0 0 40px rgba(215,190,105,0.2);
+  box-shadow: 0 0 18px rgba(225,48,108,0.45), 0 0 40px rgba(225,48,108,0.2);
 }
 .btn-primary::before {
   content: '';
@@ -292,7 +302,7 @@ nav {
     rgba(0,0,0,0.03) 8px
   );
 }
-.btn-primary:hover { background: var(--gold-light); box-shadow: 0 0 28px rgba(215,190,105,0.7), 0 0 70px rgba(215,190,105,0.35); }
+.btn-primary:hover { filter: brightness(1.15); box-shadow: 0 0 28px rgba(225,48,108,0.7), 0 0 70px rgba(225,48,108,0.35); }
 .btn-secondary {
   font-family: 'Space Mono', monospace;
   font-size: clamp(11px, 0.9vw, 14px);
@@ -331,10 +341,13 @@ nav {
   text-transform: uppercase;
   color: var(--white);
   border: 1px solid rgba(255,255,255,0.25);
-  background: rgba(0,0,0,0.58);
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), var(--insta-gradient);
   position: relative;
   z-index: 2;
-  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  transition: color 0.4s ease, border-color 0.4s ease, filter 0.4s ease;
+}
+.btn-vision-text {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);
 }
 .btn-vision-arrow {
   font-size: 16px;
@@ -355,25 +368,25 @@ nav {
   top: 0; left: -100%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(215,190,105,0.12), transparent);
+  background: linear-gradient(90deg, transparent, rgba(225,48,108,0.12), transparent);
   z-index: 3;
   pointer-events: none;
   transition: none;
 }
 .btn-vision:hover .btn-vision-inner {
-  color: var(--gold-light);
-  border-color: rgba(215,190,105,0.7);
-  background: rgba(0,0,0,0.72);
+  color: var(--white);
+  border-color: rgba(255,255,255,0.5);
+  filter: brightness(1.15);
 }
 .btn-vision:hover .btn-vision-arrow {
   transform: translateX(6px);
 }
 .btn-vision:hover .btn-vision-glow {
-  border-color: rgba(215,190,105,0.35);
+  border-color: rgba(225,48,108,0.35);
   box-shadow:
-    0 0 20px rgba(215,190,105,0.2),
-    0 0 60px rgba(215,190,105,0.12),
-    inset 0 0 20px rgba(215,190,105,0.06);
+    0 0 20px rgba(225,48,108,0.2),
+    0 0 60px rgba(225,48,108,0.12),
+    inset 0 0 20px rgba(225,48,108,0.06);
 }
 .btn-vision:hover .btn-vision-scan {
   left: 150%;
@@ -431,6 +444,13 @@ nav {
   padding-right: 80px;
 }
 .ticker-dot { color: var(--gold-dim); margin: 0 8px; }
+.ticker-highlight {
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
 @keyframes ticker {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -517,12 +537,12 @@ nav {
   transition: box-shadow 0.4s ease, background 0.4s ease;
 }
 .problem-item:hover {
-  background: rgba(215,190,105,0.03);
+  background: rgba(225,48,108,0.03);
   box-shadow:
-    inset 0 0 34px rgba(215,190,105,0.05),
-    0 0 0 1px rgba(215,190,105,0.15),
-    0 0 46px rgba(215,190,105,0.08),
-    0 0 90px rgba(215,190,105,0.04);
+    inset 0 0 34px rgba(225,48,108,0.05),
+    0 0 0 1px rgba(225,48,108,0.15),
+    0 0 46px rgba(225,48,108,0.08),
+    0 0 90px rgba(225,48,108,0.04);
 }
 .problem-item:last-child { border-right: none; }
 .problem-item::before {
@@ -530,25 +550,29 @@ nav {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(to right, transparent, rgba(215,190,105,0.35), transparent);
+  background: linear-gradient(to right, transparent, rgba(225,48,108,0.35), transparent);
   transition: opacity 0.4s ease;
 }
 .problem-item:hover::before {
-  background: linear-gradient(to right, transparent, rgba(215,190,105,0.65), transparent);
+  background: linear-gradient(to right, transparent, rgba(225,48,108,0.65), transparent);
 }
 .problem-number {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 72px;
-  color: var(--gold);
   line-height: 1;
   margin-bottom: 24px;
-  display: block;
-  text-shadow: 0 0 10px rgba(215,190,105,0.5), 0 0 22px rgba(215,190,105,0.2);
-  transition: color 0.4s ease, text-shadow 0.4s ease;
+  display: inline-block;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(225,48,108,0.5), 0 0 22px rgba(225,48,108,0.2);
+  transition: text-shadow 0.4s ease, filter 0.4s ease;
 }
 .problem-item:hover .problem-number {
-  color: var(--gold-light);
-  text-shadow: 0 0 14px rgba(215,190,105,0.7), 0 0 35px rgba(215,190,105,0.35);
+  filter: brightness(1.15);
+  text-shadow: 0 0 14px rgba(225,48,108,0.7), 0 0 35px rgba(225,48,108,0.35);
 }
 .problem-text {
   font-size: clamp(15px, 1.2vw, 18px);
@@ -557,18 +581,22 @@ nav {
   letter-spacing: 0.03em;
 }
 .problem-accent {
-  display: block;
+  display: inline-block;
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(22px, 2vw, 32px);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gold);
-  text-shadow: 0 0 8px rgba(215,190,105,0.4), 0 0 20px rgba(215,190,105,0.15);
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 8px rgba(225,48,108,0.4), 0 0 20px rgba(225,48,108,0.15);
   margin-bottom: 16px;
   transition: text-shadow 0.4s ease;
 }
 .problem-item:hover .problem-accent {
-  text-shadow: 0 0 12px rgba(215,190,105,0.65), 0 0 30px rgba(215,190,105,0.3);
+  text-shadow: 0 0 12px rgba(225,48,108,0.65), 0 0 30px rgba(225,48,108,0.3);
 }
 .problem-emphasis {
   font-weight: 700;
@@ -632,22 +660,22 @@ nav {
   position: absolute;
   inset: -2px;
   border-radius: 50%;
-  border: 1.5px solid rgba(215,190,105,0.28);
+  border: 1.5px solid rgba(225,48,108,0.28);
   box-shadow:
-    0 0 20px rgba(215,190,105,0.2),
-    0 0 55px rgba(215,190,105,0.08);
+    0 0 20px rgba(225,48,108,0.2),
+    0 0 55px rgba(225,48,108,0.08);
   animation: glow-pulse 3s ease-in-out infinite;
   pointer-events: none;
   z-index: 3;
 }
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(215,190,105,0.2), 0 0 55px rgba(215,190,105,0.08);
-    border-color: rgba(215,190,105,0.28);
+    box-shadow: 0 0 20px rgba(225,48,108,0.2), 0 0 55px rgba(225,48,108,0.08);
+    border-color: rgba(225,48,108,0.28);
   }
   50% {
-    box-shadow: 0 0 35px rgba(215,190,105,0.45), 0 0 90px rgba(215,190,105,0.2), 0 0 140px rgba(215,190,105,0.08);
-    border-color: rgba(215,190,105,0.7);
+    box-shadow: 0 0 35px rgba(225,48,108,0.45), 0 0 90px rgba(225,48,108,0.2), 0 0 140px rgba(225,48,108,0.08);
+    border-color: rgba(225,48,108,0.7);
   }
 }
 .eye-beam {
@@ -658,11 +686,13 @@ nav {
     from 270deg,
     transparent 0deg,
     transparent 255deg,
-    rgba(215,190,105,0.03) 280deg,
-    rgba(215,190,105,0.22) 308deg,
-    rgba(215,190,105,0.8) 342deg,
-    var(--gold) 358deg,
-    var(--gold) 360deg
+    rgba(131,58,180,0.15) 275deg,
+    #833AB4 288deg,
+    #C13584 304deg,
+    #E1306C 320deg,
+    #FD1D1D 336deg,
+    #F77737 350deg,
+    #FCAF45 360deg
   );
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), white calc(100% - 5px), transparent 100%);
   mask: radial-gradient(farthest-side, transparent calc(100% - 5px), white calc(100% - 5px), transparent 100%);
@@ -732,10 +762,14 @@ nav {
   color: transparent;
 }
 .eye-h2 .eye-h2-gold {
-  display: block;
-  color: var(--gold);
+  display: inline-block;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   -webkit-text-stroke: 0;
-  text-shadow: 0 0 10px rgba(215,190,105,0.45), 0 0 30px rgba(215,190,105,0.18);
+  text-shadow: 0 0 10px rgba(225,48,108,0.45), 0 0 30px rgba(225,48,108,0.18);
 }
 .eye-desc {
   font-size: clamp(14px, 1.1vw, 17px);
@@ -863,13 +897,27 @@ nav {
   letter-spacing: 0.02em;
   margin-bottom: 40px;
 }
-.trial-h2 .t1 { color: var(--gold); display: block; }
+.trial-h2 .t1 {
+  display: inline-block;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 .trial-h2 .t2 {
   -webkit-text-stroke: 3px var(--gold-dim);
   color: transparent;
   display: block;
 }
-.trial-h2 .t3 { color: var(--gold-light); display: block; }
+.trial-h2 .t3 {
+  display: inline-block;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 .trial-desc {
   font-size: clamp(13px, 1vw, 16px);
   line-height: 2;
@@ -902,15 +950,15 @@ nav {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--black);
-  background: var(--gold);
+  background: var(--insta-gradient);
   padding: 20px 56px;
   text-decoration: none;
   cursor: none;
   position: relative;
   overflow: hidden;
   margin-bottom: 24px;
-  transition: background 0.3s, box-shadow 0.3s;
-  box-shadow: 0 0 18px rgba(215,190,105,0.45), 0 0 40px rgba(215,190,105,0.2);
+  transition: filter 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 18px rgba(225,48,108,0.45), 0 0 40px rgba(225,48,108,0.2);
 }
 .trial-btn::before {
   content: '';
@@ -924,7 +972,7 @@ nav {
     rgba(0,0,0,0.04) 6px
   );
 }
-.trial-btn:hover { background: var(--gold-light); box-shadow: 0 0 28px rgba(215,190,105,0.7), 0 0 70px rgba(215,190,105,0.35); }
+.trial-btn:hover { filter: brightness(1.15); box-shadow: 0 0 28px rgba(225,48,108,0.7), 0 0 70px rgba(225,48,108,0.35); }
 .trial-spots {
   font-family: 'Space Mono', monospace;
   font-size: 9px;
@@ -943,7 +991,7 @@ nav {
   width: 24px; height: 2px;
 }
 .spot.taken { background: var(--grey-700); }
-.spot.open { background: var(--gold); }
+.spot.open { background: var(--insta-gradient); }
 
 /* WHO ITS FOR */
 #for-who {
@@ -1072,12 +1120,12 @@ nav {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(to right, transparent, rgba(215,190,105,0.5), transparent);
+  background: linear-gradient(to right, transparent, rgba(225,48,108,0.5), transparent);
 }
 .for-who-statement-bar {
   width: 48px;
   height: 2px;
-  background: var(--gold);
+  background: var(--insta-gradient);
   margin-bottom: 40px;
 }
 .for-who-statement-text {
@@ -1090,7 +1138,10 @@ nav {
   max-width: 900px;
 }
 .for-who-statement-text .stroke {
-  -webkit-text-stroke: 2px var(--gold-dim);
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 .for-who-statement-text .filled {
@@ -1243,7 +1294,7 @@ footer {
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: var(--black); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+::-webkit-scrollbar-thumb { background: var(--insta-gradient); }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
@@ -1332,9 +1383,9 @@ footer {
   <div class="hero-scan"></div>
   <div class="ticker-wrap">
     <div class="ticker-inner">
-      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span style="color: var(--gold);">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
-      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span style="color: var(--gold);">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
-      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span style="color: var(--gold);">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
+      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span class="ticker-highlight">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
+      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span class="ticker-highlight">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
+      <span class="ticker-text">VISION<span class="ticker-dot">®</span> WE SEE WHAT YOU CAN'T <span class="ticker-dot">·</span> THE EYE DIAGNOSTIC <span class="ticker-dot">·</span> COACHES & CONSULTANTS <span class="ticker-dot">·</span> US & EUROPE <span class="ticker-dot">·</span> <span class="ticker-highlight">15 DAYS FREE</span> <span class="ticker-dot">·</span> FULL SERVICE MARKETING <span class="ticker-dot">·</span></span>
     </div>
   </div>
 </section>
