@@ -248,26 +248,14 @@ nav {
   display: block;
 }
 .hero-h1 .line-3 {
-  color: var(--grey-200);
+  color: var(--white);
   display: block;
-  font-size: clamp(40px, 5vw, 80px);
 }
-.hero-sub {
-  font-size: clamp(13px, 1vw, 16px);
-  color: var(--grey-300);
-  letter-spacing: 0.08em;
-  line-height: 1.8;
-  max-width: 380px;
-  margin-bottom: 48px;
-  position: relative;
-  padding-left: 20px;
+.hero-image-mobile {
+  display: none;
 }
-.hero-sub::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, #833AB4, #C13584, #E1306C, #FD1D1D, #F77737, #FCAF45);
+.hero-mobile-scrim {
+  display: none;
 }
 .hero-buttons {
   display: flex;
@@ -1301,11 +1289,30 @@ footer {
   nav { padding: 16px 20px; }
   .nav-logo img { height: 64px; }
   .nav-links { display: none; }
-  #hero { padding-top: 80px; padding-bottom: 90px; }
+  #hero { height: auto; min-height: 0; overflow: visible; align-items: flex-start; flex-direction: column; padding-top: 80px; padding-bottom: 40px; }
+  .ticker-wrap { position: static; width: 100%; margin-top: 32px; }
   .label { white-space: nowrap; font-size: clamp(8px, 2.4vw, 10px); letter-spacing: 0.12em; }
   .hero-content { max-width: 100%; padding: 0 24px; }
-  .hero-image { opacity: 0.22; width: 100%; right: 0; }
-  .hero-h1 { font-size: clamp(44px, 11vw, 72px); }
+  .hero-image { display: none; }
+  .hero-image-mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: contrast(1.1) brightness(0.9);
+  }
+  .hero-mobile-scrim {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.9) 100%);
+  }
+  .hero-h1 { font-size: clamp(44px, 11vw, 72px); text-shadow: 0 2px 14px rgba(0,0,0,0.7); margin-top: 240px; }
+  .hero-eyebrow .label { text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
+  .hero-buttons { margin-bottom: 0 !important; }
   #problem { padding: 80px 24px; }
   .problem-grid { grid-template-columns: 1fr; }
   .problem-item { border-right: none; border-bottom: 1px solid var(--grey-800); }
@@ -1329,7 +1336,6 @@ footer {
 @media (max-width: 480px) {
   .nav-logo img { height: 52px; }
   .hero-h1 { font-size: clamp(36px, 13vw, 56px); }
-  .hero-sub { font-size: 12px; }
   .eye-glow-ring { width: 220px; height: 220px; }
   .eye-photo-wrap { width: 220px; height: 220px; }
   .trial-h2 { font-size: clamp(52px, 14vw, 72px); }
@@ -1358,21 +1364,22 @@ footer {
 <section id="hero">
   <div class="hero-bg-texture"></div>
   <img class="hero-image" src="two.png" alt="Vision founder in cyberpunk mask">
+  <img class="hero-image-mobile" src="two.png" alt="Vision founder in cyberpunk mask">
+  <div class="hero-mobile-scrim"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="hero-eyebrow-line"></div>
-      <span class="label">Vision® — Full  Marketing Services</span>
+      <span class="label">Vision® — is what you need</span>
     </div>
     <h1 class="hero-h1 display">
-      <span>WE SEE</span>
-      <span class="line-2">WHAT</span>
-      <span class="line-3">YOU CAN'T.</span>
+      <span>THE TOOL</span>
+      <span class="line-2">TO WIN AT</span>
+      <span class="line-3">SOCIAL MEDIA.</span>
     </h1>
-    <p class="hero-sub">The Piece Your Business Needs to Reach the Next Level</p>
     <div class="hero-buttons" style="margin-bottom: 30px;">
       <a href="#problem" class="btn-vision">
         <span class="btn-vision-inner">
-          <span class="btn-vision-text">Our Vision For Marketing</span>
+          <span class="btn-vision-text">I Am Ready To Win</span>
           <span class="btn-vision-arrow">↓</span>
         </span>
         <span class="btn-vision-glow"></span>
