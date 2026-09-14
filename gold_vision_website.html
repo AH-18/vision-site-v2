@@ -263,6 +263,7 @@ nav {
   flex-wrap: wrap;
 }
 .btn-primary {
+  display: inline-block;
   font-family: 'Space Mono', monospace;
   font-size: clamp(11px, 0.9vw, 14px);
   letter-spacing: 0.2em;
@@ -769,6 +770,7 @@ nav {
   border: 1px solid var(--grey-800);
   background: rgba(255,255,255,0.02);
   font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 500;
   line-height: 1.6;
   color: var(--grey-100);
   letter-spacing: 0.01em;
@@ -1305,6 +1307,7 @@ footer {
   .problem-point { gap: 14px; padding: 14px 14px 14px 20px; }
   #eye-section { padding: 80px 24px; }
   .eye-layout { grid-template-columns: 1fr; gap: 48px; }
+  .eye-content .btn-primary { display: block; width: max-content; margin: 36px auto 0; }
   .eye-visual { justify-content: center; }
   .eye-glow-ring { width: 270px; height: 270px; }
   .eye-photo-wrap { width: 270px; height: 270px; }
@@ -1405,7 +1408,7 @@ footer {
     </div>
   </div>
   <div style="text-align: center; margin-top: 56px;">
-    <a href="#eye-section" class="btn-primary">Access The Platform</a>
+    <a href="#eye-section" class="btn-primary" style="color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Access The Platform</a>
   </div>
 </section>
 
@@ -1448,6 +1451,7 @@ footer {
           Finally, we back it with a library of proven hooks, templates, and formats.
         </div>
       </div>
+      <a href="#trial" class="btn-primary" style="margin-top:36px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Start Winning Now</a>
     </div>
   </div>
 </section>
