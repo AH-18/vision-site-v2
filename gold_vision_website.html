@@ -805,7 +805,7 @@ nav {
   color: transparent;
 }
 
-/* SECTION FREE TRIAL */
+/* SECTION PRICING */
 #trial {
   padding: 120px 48px;
   background:
@@ -815,342 +815,234 @@ nav {
   position: relative;
   overflow: hidden;
 }
-.trial-frame {
-  border: 1px solid var(--grey-700);
-  padding: 80px;
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
+.pricing-header {
   text-align: center;
-}
-.trial-frame::before, .trial-frame::after {
-  content: '';
-  position: absolute;
-  width: 20px; height: 20px;
-}
-.trial-frame::before {
-  top: -1px; left: -1px;
-  border-top: 2px solid var(--gold);
-  border-left: 2px solid var(--gold);
-}
-.trial-frame::after {
-  bottom: -1px; right: -1px;
-  border-bottom: 2px solid var(--gold);
-  border-right: 2px solid var(--gold);
-}
-.trial-corner-tr {
-  position: absolute;
-  top: -1px; right: -1px;
-  width: 20px; height: 20px;
-  border-top: 2px solid var(--gold);
-  border-right: 2px solid var(--gold);
-}
-.trial-corner-bl {
-  position: absolute;
-  bottom: -1px; left: -1px;
-  width: 20px; height: 20px;
-  border-bottom: 2px solid var(--gold);
-  border-left: 2px solid var(--gold);
-}
-.trial-eyebrow {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(12px, 1vw, 15px);
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--grey-400);
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-.trial-eyebrow::before, .trial-eyebrow::after {
-  content: '— ';
-  color: var(--grey-700);
-}
-.trial-h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(80px, 12vw, 180px);
-  line-height: 0.85;
-  letter-spacing: 0.02em;
-  margin-bottom: 40px;
-}
-.trial-h2 .t1 {
-  display: inline-block;
-  background: var(--insta-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-.trial-h2 .t2 {
-  -webkit-text-stroke: 3px var(--gold-dim);
-  color: transparent;
-  display: block;
-}
-.trial-h2 .t3 {
-  display: inline-block;
-  background: var(--insta-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-.trial-desc {
-  font-size: clamp(13px, 1vw, 16px);
-  line-height: 2;
-  color: var(--grey-300);
-  font-weight: 300;
-  max-width: 560px;
-  margin: 0 auto 16px;
-  letter-spacing: 0.03em;
-}
-.trial-count-highlight {
-  color: var(--white);
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(240,237,232,0.35);
-}
-.trial-why {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(10px, 0.85vw, 13px);
-  letter-spacing: 0.03em;
-  text-transform: none;
-  color: var(--grey-400);
-  font-weight: 300;
-  margin-bottom: 48px;
-  line-height: 1.8;
-}
-.trial-why span { color: var(--grey-300); }
-.trial-btn {
-  display: inline-block;
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(11px, 0.9vw, 14px);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--black);
-  background: var(--insta-gradient);
-  padding: 20px 56px;
-  text-decoration: none;
-  cursor: none;
+  margin-bottom: 64px;
   position: relative;
-  overflow: hidden;
-  margin-bottom: 24px;
-  transition: filter 0.3s, box-shadow 0.3s;
-  box-shadow: 0 0 18px rgba(225,48,108,0.45), 0 0 40px rgba(225,48,108,0.2);
+  z-index: 1;
 }
-.trial-btn::before {
-  content: '';
+.pricing-h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 6vw, 88px);
+  letter-spacing: 0.03em;
+  color: var(--white);
+}
+.pricing-h2-gradient {
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  align-items: start;
+}
+.pricing-card {
+  background: var(--grey-950);
+  border: 1px solid var(--grey-800);
+  padding: 40px 32px;
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card--mid {
+  background: #16090f;
+  border: 1.5px solid rgba(225,48,108,0.5);
+  box-shadow: 0 0 30px rgba(225,48,108,0.15);
+  transform: translateY(-8px);
+}
+.pricing-card--annual {
+  background: #0d0d10;
+}
+.pricing-badge {
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.04) 3px,
-    rgba(0,0,0,0.04) 6px
-  );
-}
-.trial-btn:hover { filter: brightness(1.15); box-shadow: 0 0 28px rgba(225,48,108,0.7), 0 0 70px rgba(225,48,108,0.35); }
-.trial-spots {
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--insta-gradient);
+  color: var(--black);
   font-family: 'Space Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.pricing-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--grey-600);
-  margin-top: 24px;
-}
-.spots-indicator {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
+  color: var(--grey-400);
   margin-bottom: 16px;
 }
-.spot {
-  width: 24px; height: 2px;
+.pricing-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 4vw, 52px);
+  line-height: 1;
+  margin-bottom: 4px;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
 }
-.spot.taken { background: var(--grey-700); }
-.spot.open { background: var(--insta-gradient); }
+.pricing-cadence {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--grey-400);
+  margin-bottom: 20px;
+}
+.pricing-save-text {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-bottom: 20px;
+}
+.pricing-tagline {
+  font-size: clamp(14px, 1.1vw, 16px);
+  color: var(--grey-200);
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+.pricing-btn {
+  display: block;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--insta-gradient);
+  padding: 14px 0;
+  border-radius: 999px;
+  text-decoration: none;
+  margin-bottom: 28px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);
+  transition: filter 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 16px rgba(225,48,108,0.35);
+}
+.pricing-btn:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 0 24px rgba(225,48,108,0.55);
+}
+.pricing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pricing-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: clamp(13px, 1vw, 14px);
+  color: var(--grey-200);
+  line-height: 1.5;
+}
+.pricing-check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+.pricing-summary {
+  font-size: clamp(13px, 1vw, 14px);
+  color: var(--grey-200);
+  line-height: 1.7;
+}
 
 /* WHO ITS FOR */
-#for-who {
+#included {
   padding: 120px 48px;
   background: var(--black);
   border-top: 1px solid var(--grey-800);
 }
-.for-who-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+.included-header {
+  text-align: center;
   margin-bottom: 64px;
 }
-.for-who-h2 {
+.included-h2 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(48px, 6vw, 88px);
-  line-height: 0.9;
-  letter-spacing: 0.03em;
-}
-.for-who-h2 .stroke {
-  -webkit-text-stroke: 1px var(--grey-600);
-  color: transparent;
-  display: block;
-}
-.cards-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  background: transparent;
-  border: none;
-}
-.card {
-  background: var(--black);
-  padding: 56px 40px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.4s;
-}
-.card:hover { background: var(--grey-950); }
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--grey-700), transparent);
-  transform: scaleX(0);
-  transition: transform 0.4s;
-}
-.card:hover::before { transform: scaleX(1); }
-.card-number {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 80px;
-  color: var(--grey-850);
-  line-height: 1;
-  position: absolute;
-  top: 16px; right: 24px;
-  -webkit-text-stroke: 1px var(--grey-800);
-}
-.card-icon {
-  width: 40px; height: 40px;
-  margin-bottom: 32px;
-  position: relative;
-}
-.card-icon-circle {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--grey-600);
-  position: relative;
-}
-.card-icon-circle::after {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--grey-600);
-}
-.card-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 0.05em;
-  color: var(--white);
-  margin-bottom: 16px;
-  line-height: 1;
-}
-.card-desc {
-  font-size: clamp(13px, 1vw, 16px);
-  line-height: 1.9;
-  color: var(--grey-400);
-  letter-spacing: 0.02em;
-}
-.card-bottom {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 40px;
-}
-.card-line { flex: 1; height: 1px; background: var(--grey-800); }
-.card-arrow {
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  color: var(--grey-600);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.cards-footer {
-  text-align: center;
-  padding: 32px;
-  border: 1px solid var(--grey-800);
-  border-top: none;
-}
-
-/* FOR WHO STATEMENT */
-.for-who-statement {
-  grid-column: 1 / -1;
-  padding: 72px 64px;
-  border: 1px solid var(--grey-800);
-  position: relative;
-  overflow: hidden;
-  background: rgba(255,255,255,0.01);
-}
-.for-who-statement::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(to right, transparent, rgba(225,48,108,0.5), transparent);
-}
-.for-who-statement-bar {
-  width: 48px;
-  height: 2px;
-  background: var(--insta-gradient);
-  margin-bottom: 40px;
-}
-.for-who-statement-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 4.5vw, 72px);
-  line-height: 1.05;
   letter-spacing: 0.03em;
   color: var(--white);
-  margin-bottom: 40px;
-  max-width: 900px;
 }
-.for-who-statement-text .stroke {
+.included-h2-gradient {
   background: var(--insta-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
-.for-who-statement-text .filled {
-  color: var(--white);
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 64px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-.for-who-statement-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(15px, 1.2vw, 19px);
-  line-height: 1.9;
-  color: var(--grey-300);
-  max-width: 780px;
-  margin-bottom: 56px;
-  letter-spacing: 0.02em;
+.included-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--grey-800);
 }
-.for-who-statement-line {
+.included-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  border: 1.5px solid rgba(225,48,108,0.35);
+  background: rgba(225,48,108,0.05);
+  box-shadow: 0 0 14px rgba(225,48,108,0.15);
 }
-.for-who-statement-tag {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(10px, 0.85vw, 13px);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--grey-500);
-  white-space: nowrap;
+.included-icon svg {
+  width: 24px;
+  height: 24px;
 }
-.for-who-statement-dash {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--grey-700), transparent);
+.included-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 4px;
+}
+.included-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: 0.03em;
+  color: var(--white);
+  line-height: 1.2;
+}
+.included-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(13px, 1vw, 14px);
+  color: var(--grey-400);
+  line-height: 1.5;
 }
 
 /* FINAL CTA */
@@ -1312,11 +1204,10 @@ footer {
   .eye-glow-ring { width: 270px; height: 270px; }
   .eye-photo-wrap { width: 270px; height: 270px; }
   #trial { padding: 80px 24px; }
-  .trial-frame { padding: 48px 24px; }
-  .trial-h2 { font-size: 72px; }
-  #for-who { padding: 80px 24px; }
-  .for-who-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .cards-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 32px; }
+  .pricing-card--mid { transform: none; }
+  #included { padding: 80px 24px; }
+  .included-grid { grid-template-columns: 1fr; gap: 0; }
   footer { padding: 48px 24px 24px; }
   .footer-main { grid-template-columns: 1fr; gap: 32px; }
   .footer-bar { flex-direction: column; gap: 8px; }
@@ -1328,12 +1219,25 @@ footer {
   .hero-h1 { font-size: clamp(36px, 13vw, 56px); }
   .eye-glow-ring { width: 220px; height: 220px; }
   .eye-photo-wrap { width: 220px; height: 220px; }
-  .trial-h2 { font-size: clamp(52px, 14vw, 72px); }
+  .pricing-h2 { font-size: clamp(36px, 11vw, 64px); }
   .problem-headline { font-size: clamp(36px, 11vw, 64px); }
 }
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="instaIconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#833AB4"/>
+      <stop offset="25%" stop-color="#C13584"/>
+      <stop offset="50%" stop-color="#E1306C"/>
+      <stop offset="65%" stop-color="#FD1D1D"/>
+      <stop offset="80%" stop-color="#F77737"/>
+      <stop offset="100%" stop-color="#FCAF45"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <canvas id="grain"></canvas>
 <div id="cursor"></div>
@@ -1344,8 +1248,8 @@ footer {
   <a href="#" class="nav-logo"><img src="logo png.png" alt="Vision" /></a>
   <ul class="nav-links">
     <li><a href="#eye-section">The Eye</a></li>
-    <li><a href="#trial">Free Trial</a></li>
-    <li><a href="#for-who">Who It's For</a></li>
+    <li><a href="#included">What's Included</a></li>
+    <li><a href="#trial">Pricing</a></li>
   </ul>
   <a href="#trial" class="nav-cta">Apply Now</a>
 </nav>
@@ -1456,50 +1360,147 @@ footer {
   </div>
 </section>
 
-<!-- FREE TRIAL -->
-<section id="trial">
-  <div class="trial-frame">
-    <div class="trial-corner-tr"></div>
-    <div class="trial-corner-bl"></div>
-    <div class="trial-eyebrow" style="font-size: clamp(16px, 1.4vw, 22px);">Limited Availability</div>
-    <div class="trial-h2 display">
-      <span class="t1">15</span>
-      <span class="t2">DAYS</span>
-      <span class="t3">FREE.</span>
+<!-- WHAT'S INCLUDED -->
+<section id="included">
+  <div class="included-header">
+    <h2 class="included-h2 display">WHAT'S <span class="included-h2-gradient">INCLUDED?</span></h2>
+  </div>
+  <div class="included-grid">
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="7" width="18" height="14" rx="2"/>
+          <path d="M3 7l3-4h4l-3 4"/>
+          <path d="M10 7l3-4h4l-3 4"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">Reel Templates</span>
+        <span class="included-sub">250+ Done-For-You Reel Templates + 20 New Monthly</span>
+      </div>
     </div>
-    <p class="trial-desc" style="font-size: clamp(15px, 1.2vw, 18px);">We're opening <span class="trial-count-highlight">5</span> spots for businesses who want to see what Vision can do before spending a dollar. 15 days at zero cost.</p>
-    <div class="spots-indicator">
-      <div class="spot taken"></div>
-      <div class="spot open"></div>
-      <div class="spot open"></div>
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">In-App Text &amp; Template Editor</span>
+      </div>
     </div>
-    <a href="https://instagram.com" target="_blank" class="trial-btn">Apply for Free Trial</a>
-    <p class="trial-why" style="font-size: clamp(13px, 1.1vw, 16px); color: var(--grey-400); margin-top: 20px;"><span style="color: var(--grey-200); font-weight: 600;">WHY FREE?</span> — We're new. We have a system we believe in.<br>We'd rather prove it than pitch it.</p>
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3h.5a8.5 8.5 0 0 1 8 8.5z"/>
+          <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">Hook &amp; Story Script Library</span>
+        <span class="included-sub">Written to fit your identity, not generic viral hooks</span>
+      </div>
+    </div>
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3c-4 0-7 2.5-7 7 0 3 1.5 4.5 2 6 .3 1 .2 2-.5 3 1.5.5 3-.2 4-1"/>
+          <path d="M12 3c4 0 7 2.5 7 7 0 3-1.5 4.5-2 6-.3 1-.2 2 .5 3-1.5.5-3-.2-4-1"/>
+          <path d="M9 10a3 3 0 0 1 6 0c0 2-1 3-1 5"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">Brand Identity Breakdown</span>
+        <span class="included-sub">Your voice, edge, and content pillars, documented</span>
+      </div>
+    </div>
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="16" rx="2"/>
+          <path d="M16 3v4M8 3v4M3 10h18"/>
+          <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">Content Calendar, Mapped to Your Audience</span>
+        <span class="included-sub">Sequenced by how ready they are to engage</span>
+      </div>
+    </div>
+    <div class="included-item">
+      <div class="included-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M9 22h6"/>
+        </svg>
+      </div>
+      <div class="included-copy">
+        <span class="included-label">Direct Feedback Access</span>
+        <span class="included-sub">A real person reviewing your content</span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 56px;">
+    <a href="#trial" class="btn-primary" style="color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">I'm In</a>
   </div>
 </section>
 
-<!-- WHO IS IT FOR -->
-<section id="for-who">
-  <div class="for-who-header">
-    <h2 class="for-who-h2 display">
-      WHO<br>
-      <span class="stroke">IS IT FOR</span>
-    </h2>
-    <!-- <span class="label">Remote only · US · UK · Europe</span> -->
+<!-- PRICING -->
+<section id="trial">
+  <div class="pricing-header">
+    <h2 class="pricing-h2 display">CHOOSE YOUR <span class="pricing-h2-gradient">PLAN</span></h2>
   </div>
-  <div class="cards-grid">
-    <div class="for-who-statement">
-      <div class="for-who-statement-bar"></div>
-      <p class="for-who-statement-text">
-        <span class="filled">For businesses that know they have </span><span class="stroke">more potential</span><span class="filled"> — but </span><span class="stroke">feel stuck</span><span class="filled"> reaching it.</span>
-      </p>
-      <p class="for-who-statement-sub">
-        You don't want to spend a fortune chasing trends or guessing what works — you need a clear direction, a stronger position in the market, and a strategy that turns attention into lasting growth.
-      </p>
-      <!-- <div class="for-who-statement-line">
-        <span class="for-who-statement-tag">US &nbsp;·&nbsp; UK &nbsp;·&nbsp; Europe &nbsp;·&nbsp; Remote Only</span>
-        <div class="for-who-statement-dash"></div> -->
-      </div>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Standard</div>
+      <div class="pricing-price">$XX</div>
+      <div class="pricing-cadence">every 4 weeks</div>
+      <p class="pricing-tagline">Finally stop guessing.</p>
+      <a href="https://instagram.com" target="_blank" class="pricing-btn">Get Started</a>
+      <ul class="pricing-list">
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          Reel Templates <span style="color:var(--grey-400)">(250+ archive, 20 new monthly)</span>
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          In-App Text &amp; Template Editor
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          Hook &amp; Story Script Library
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          Brand Identity Breakdown
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          Content Calendar, Mapped to Your Audience
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="url(#instaIconGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+          Weekly Creator Spotlight
+        </li>
+      </ul>
+    </div>
+    <div class="pricing-card pricing-card--mid">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-name">Quarterly</div>
+      <div class="pricing-price">$XX</div>
+      <div class="pricing-cadence">every 12 weeks</div>
+      <div class="pricing-save-text">Save XX%</div>
+      <a href="https://instagram.com" target="_blank" class="pricing-btn">Get Started</a>
+      <p class="pricing-summary">For creators serious about growing and building a real identity — commit to 3 months and save <strong>XX%</strong>.</p>
+    </div>
+    <div class="pricing-card pricing-card--annual">
+      <div class="pricing-name">Annual</div>
+      <div class="pricing-price">$XX</div>
+      <div class="pricing-cadence">every 52 weeks</div>
+      <div class="pricing-save-text">Save XX%</div>
+      <a href="https://instagram.com" target="_blank" class="pricing-btn">Get Started</a>
+      <p class="pricing-summary">For creators going all in — secure 12 months of identity, story, and content support, and save <strong>XX%</strong>.</p>
     </div>
   </div>
 </section>
@@ -1514,7 +1515,7 @@ footer {
       <span class="line2">BE SEEN?</span>
     </h2>
     <div class="cta-buttons">
-      <a href="#trial" class="btn-primary">Start Free Trial</a>
+      <a href="#trial" class="btn-primary" style="color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">View Pricing</a>
       <a href="https://instagram.com" target="_blank" class="btn-secondary">DM on Instagram</a>
     </div>
   </div>
@@ -1531,8 +1532,8 @@ footer {
       <p class="footer-info-label">Navigation</p>
       <ul class="footer-links">
         <li><a href="#eye-section">The Eye</a></li>
-        <li><a href="#trial">Free Trial</a></li>
-        <li><a href="#for-who">Who It's For</a></li>
+        <li><a href="#included">What's Included</a></li>
+        <li><a href="#trial">Pricing</a></li>
         <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
       </ul>
     </div>
