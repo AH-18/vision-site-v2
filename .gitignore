@@ -9,3 +9,6 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Secrets / credentials - never commit
+.env*

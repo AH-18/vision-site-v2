@@ -482,7 +482,7 @@ nav {
 }
 
 /* SECTION PROBLEM */
-#problem {
+.problem-section {
   padding: 100px 48px;
   background:
     radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.6) 100%),
@@ -493,6 +493,10 @@ nav {
     radial-gradient(ellipse 40% 60% at 20% 50%, rgba(20,20,20,0.8) 0%, transparent 60%),
     var(--black);
   border-top: 1px solid var(--grey-800);
+}
+#problem-2 {
+  background: #000000;
+  display: none;
 }
 .problem-headline {
   font-family: 'Bebas Neue', sans-serif;
@@ -589,6 +593,10 @@ nav {
   -webkit-text-fill-color: transparent;
   color: transparent;
   text-shadow: 0 0 12px rgba(225,48,108,0.4), 0 0 26px rgba(253,29,29,0.2);
+}
+.who-photo-blend {
+  -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 85% at center, black 55%, transparent 100%);
 }
 
 /* SECTION EYE */
@@ -756,7 +764,7 @@ nav {
   -webkit-text-fill-color: transparent;
   color: transparent;
   -webkit-text-stroke: 0;
-  text-shadow: 0 0 10px rgba(225,48,108,0.45), 0 0 30px rgba(225,48,108,0.18);
+  text-shadow: 0 0 5px rgba(225,48,108,0.25), 0 0 14px rgba(225,48,108,0.1);
 }
 .eye-points {
   display: flex;
@@ -764,12 +772,19 @@ nav {
   gap: 16px;
   max-width: 440px;
 }
+.eye-content .btn-primary {
+  display: inline-block;
+}
+.eye-cta-wrap {
+  max-width: 440px;
+  text-align: center;
+}
 .eye-point-box {
   position: relative;
   padding: 22px 26px 22px 32px;
   border: 1px solid var(--grey-800);
   background: rgba(255,255,255,0.02);
-  font-size: clamp(15px, 1.1vw, 17px);
+  font-size: clamp(19px, 1.8vw, 24px);
   font-weight: 500;
   line-height: 1.6;
   color: var(--grey-100);
@@ -796,13 +811,28 @@ nav {
 .eye-point-num {
   display: inline-block;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  margin-right: 8px;
+  font-size: 30px;
+  margin-right: 10px;
   background: var(--insta-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+.insta-underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
+}
+.insta-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--insta-gradient);
 }
 
 /* SECTION PRICING */
@@ -1033,16 +1063,10 @@ nav {
 }
 .included-label {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(18px, 1.6vw, 22px);
+  font-size: clamp(24px, 2.4vw, 32px);
   letter-spacing: 0.03em;
   color: var(--white);
   line-height: 1.2;
-}
-.included-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(13px, 1vw, 14px);
-  color: var(--grey-400);
-  line-height: 1.5;
 }
 
 /* FINAL CTA */
@@ -1195,7 +1219,10 @@ footer {
   .hero-h1 { font-size: clamp(44px, 11vw, 72px); text-shadow: 0 2px 14px rgba(0,0,0,0.7); margin-top: 240px; }
   .hero-eyebrow .label { text-shadow: 0 1px 6px rgba(0,0,0,0.6); }
   .hero-buttons { margin-bottom: 0 !important; }
-  #problem { padding: 80px 24px; }
+  .problem-section { padding: 80px 24px; }
+  .who-photo-wrap { width: 98% !important; }
+  #problem { display: none; }
+  #problem-2 { display: block; }
   .problem-point { gap: 14px; padding: 14px 14px 14px 20px; }
   #eye-section { padding: 80px 24px; }
   .eye-layout { grid-template-columns: 1fr; gap: 48px; }
@@ -1292,7 +1319,7 @@ footer {
 </section>
 
 <!-- PROBLEM -->
-<section id="problem">
+<section id="problem" class="problem-section">
   <div class="problem-headline display">
     <span class="filled">VISION PLATFORM</span>
     <span class="stroke">IS FOR THOSE WHO</span>
@@ -1318,6 +1345,19 @@ footer {
       <span class="problem-bullet"></span>
       <p class="problem-text">Get a viral video once in a while, but can't turn it into <span class="problem-highlight">steady growth</span>.</p>
     </div>
+  </div>
+  <div style="text-align: center; margin-top: 56px;">
+    <a href="#eye-section" class="btn-primary" style="color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Access The Platform</a>
+  </div>
+</section>
+
+<section id="problem-2" class="problem-section">
+  <div class="problem-headline display">
+    <span class="filled">VISION PLATFORM</span>
+    <span class="stroke">IS FOR THOSE WHO</span>
+  </div>
+  <div class="who-photo-wrap" style="text-align: center; max-width: 1000px; width: 90%; margin: 0 auto;">
+    <img src="who 5.jpg" alt="Who Vision is for" class="who-photo-blend" style="width: 100%; height: auto; display: block;" />
   </div>
   <div style="text-align: center; margin-top: 56px;">
     <a href="#eye-section" class="btn-primary" style="color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Access The Platform</a>
@@ -1352,18 +1392,20 @@ footer {
       <div class="eye-points">
         <div class="eye-point-box">
           <span class="eye-point-num">01</span>
-          We uncover who you actually are — your voice, your edge, your identity.
+          We uncover who you actually are — your <span class="insta-underline">voice</span>, your <span class="insta-underline">edge</span>, your <span class="insta-underline">identity</span>.
         </div>
         <div class="eye-point-box">
           <span class="eye-point-num">02</span>
-          Then we turn that identity into stories people can't scroll past.
+          Then we turn that identity into <span class="insta-underline">stories</span> people can't scroll past.
         </div>
         <div class="eye-point-box">
           <span class="eye-point-num">03</span>
-          Finally, we back it with a library of proven hooks, templates, and formats.
+          Finally, we back it with a library of proven <span class="insta-underline">hooks</span>, <span class="insta-underline">templates</span>, and <span class="insta-underline">formats</span>.
         </div>
       </div>
-      <a href="#trial" class="btn-primary" style="margin-top:36px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Start Winning Now</a>
+      <div class="eye-cta-wrap">
+        <a href="#trial" class="btn-primary" style="margin-top:36px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);">Start Winning Now</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1384,7 +1426,6 @@ footer {
       </div>
       <div class="included-copy">
         <span class="included-label">Reel Templates</span>
-        <span class="included-sub">250+ Done-For-You Reel Templates + 20 New Monthly</span>
       </div>
     </div>
     <div class="included-item">
@@ -1407,7 +1448,6 @@ footer {
       </div>
       <div class="included-copy">
         <span class="included-label">Hook &amp; Story Script Library</span>
-        <span class="included-sub">Written to fit your identity, not generic viral hooks</span>
       </div>
     </div>
     <div class="included-item">
@@ -1420,7 +1460,6 @@ footer {
       </div>
       <div class="included-copy">
         <span class="included-label">Brand Identity Breakdown</span>
-        <span class="included-sub">Your voice, edge, and content pillars, documented</span>
       </div>
     </div>
     <div class="included-item">
@@ -1433,7 +1472,6 @@ footer {
       </div>
       <div class="included-copy">
         <span class="included-label">Content Calendar, Mapped to Your Audience</span>
-        <span class="included-sub">Sequenced by how ready they are to engage</span>
       </div>
     </div>
     <div class="included-item">
@@ -1445,7 +1483,6 @@ footer {
       </div>
       <div class="included-copy">
         <span class="included-label">Direct Feedback Access</span>
-        <span class="included-sub">A real person reviewing your content</span>
       </div>
     </div>
   </div>
