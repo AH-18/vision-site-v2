@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  /* Vision design tokens — extracted from gold_vision_website.html */
+  --black: #0d0d0d;
+  --grey-950: #0a0a0a;
+  --grey-900: #111111;
+  --grey-850: #161616;
+  --grey-800: #1c1c1c;
+  --grey-700: #2a2a2a;
+  --grey-600: #3d3d3d;
+  --grey-500: #555555;
+  --grey-400: #787878;
+  --grey-300: #a0a0a0;
+  --grey-200: #c8c8c8;
+  --grey-100: #e0e0e0;
+  --white: #f0ede8;
+
+  --gold: #e1306c;
+  --gold-light: #fd8d3c;
+  --gold-dim: #b0205c;
+  --gold-glow: rgba(225, 48, 108, 0.2);
+  --gold-glow-strong: rgba(225, 48, 108, 0.55);
+
+  /* Real Instagram gradient: purple -> pink -> red -> orange -> yellow */
+  --insta-gradient: linear-gradient(
+    45deg,
+    #833ab4 0%,
+    #c13584 25%,
+    #e1306c 50%,
+    #fd1d1d 65%,
+    #f77737 80%,
+    #fcaf45 100%
+  );
+
+  --background: var(--black);
+  --foreground: var(--white);
+}
+
+@theme inline {
+  --color-black: var(--black);
+  --color-grey-950: var(--grey-950);
+  --color-grey-900: var(--grey-900);
+  --color-grey-850: var(--grey-850);
+  --color-grey-800: var(--grey-800);
+  --color-grey-700: var(--grey-700);
+  --color-grey-600: var(--grey-600);
+  --color-grey-500: var(--grey-500);
+  --color-grey-400: var(--grey-400);
+  --color-grey-300: var(--grey-300);
+  --color-grey-200: var(--grey-200);
+  --color-grey-100: var(--grey-100);
+  --color-white: var(--white);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dim: var(--gold-dim);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-display: var(--font-bebas), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-space-mono), monospace;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(131, 58, 180, 0.14), transparent 42%),
+    radial-gradient(circle at 82% 15%, rgba(253, 29, 29, 0.09), transparent 45%),
+    radial-gradient(circle at 55% 85%, rgba(247, 119, 55, 0.07), transparent 50%),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 200;
+  min-height: 100vh;
+}
+
+/* Reusable Instagram-gradient text/background utilities, matching the marketing site */
+.insta-gradient-bg {
+  background: var(--insta-gradient);
+}
+.insta-gradient-text {
+  background: var(--insta-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.insta-gradient-border {
+  border-image: var(--insta-gradient) 1;
+}
