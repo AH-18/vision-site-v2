@@ -91,8 +91,8 @@ export default function HomePage() {
         <div className="flex gap-3 overflow-x-auto pb-1">
           {OTHER_SEQUENCES.map((s) => (
             <Link key={s.id} href={`/sequences/${s.id}`}>
-              <Card className="w-40 shrink-0">
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-grey-200">
+              <Card className="flex aspect-square w-40 shrink-0 items-center justify-center text-center">
+                <span className="font-display text-xl leading-tight text-grey-100">
                   {s.title}
                 </span>
               </Card>

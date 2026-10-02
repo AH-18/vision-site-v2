@@ -54,7 +54,7 @@ export default function SequenceDetailClient({ sequence }: { sequence: Sequence 
             </p>
             <Link
               href="/profile"
-              className="mt-4 block w-full insta-gradient-bg py-3 text-center font-mono text-xs uppercase tracking-[0.2em] text-white"
+              className="mx-auto mt-4 block w-full max-w-sm rounded-full border-2 border-gold bg-transparent py-3 text-center font-mono text-xs uppercase tracking-[0.2em] text-white transition-all duration-200 hover:bg-gold/10 hover:shadow-[0_0_20px_rgba(225,48,108,0.45)] active:scale-95 active:bg-gold/20"
             >
               Go To Profile
             </Link>

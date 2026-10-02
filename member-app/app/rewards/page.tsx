@@ -1,6 +1,7 @@
 import PageHeader from "@/components/PageHeader";
 import Card from "@/components/Card";
 import ProgressBar from "@/components/ProgressBar";
+import Link from "next/link";
 import { LEVELS, getLevelProgress } from "@/lib/levels";
 
 export default function RewardsPage() {
@@ -11,6 +12,22 @@ export default function RewardsPage() {
       <PageHeader title="Your" gradientWord="Rewards" subtitle="Level & progress" />
 
       <div className="px-6">
+        <Card className="mb-6">
+          <h2 className="font-display text-xl">How To Win Rewards</h2>
+          <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-center">
+            <div className="aspect-video w-full max-w-md rounded bg-grey-800" />
+            <div>
+              <p className="font-display text-2xl">Post. Level Up. Repeat.</p>
+              <ul className="mt-3 space-y-2 text-sm text-grey-200">
+                <li>🎁 Free months</li>
+                <li>📣 Story shoutouts</li>
+                <li>🤝 Free community access</li>
+                <li>📞 1:1 call with Vision</li>
+              </ul>
+            </div>
+          </div>
+        </Card>
+
         <Card className="mb-6">
           <div className="flex items-center justify-between">
             <div>
@@ -33,11 +50,12 @@ export default function RewardsPage() {
               {nextLevel.postsRequired - postsMade} posts to &quot;{nextLevel.title}&quot;
             </p>
           )}
-        </Card>
-
-        <Card className="mb-6">
-          <h2 className="font-display text-xl">Level-Up Video</h2>
-          <div className="mt-3 aspect-video w-full rounded bg-grey-800" />
+          <Link
+            href="/submit-post"
+            className="mx-auto mt-4 block w-full max-w-sm rounded-full border-2 border-gold bg-transparent py-3 text-center font-mono text-xs uppercase tracking-[0.2em] text-white transition-all duration-200 hover:bg-gold/10 hover:shadow-[0_0_20px_rgba(225,48,108,0.45)] active:scale-95 active:bg-gold/20"
+          >
+            Submit Your Post
+          </Link>
         </Card>
 
         <h2 className="mb-3 font-display text-xl">Levels</h2>
