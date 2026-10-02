@@ -90,3 +90,25 @@ body {
 .insta-gradient-border {
   border-image: var(--insta-gradient) 1;
 }
+
+/* Layered colored shadow approximating the Instagram gradient glow
+   (box-shadow can't render a real gradient, so this stacks the gradient's
+   key hues — purple, pink/red, orange — at increasing blur). Centered (no
+   y-offset) so it halos the whole shape evenly instead of pooling at the
+   bottom. */
+.insta-gradient-shadow {
+  box-shadow:
+    0 0 22px rgba(131, 58, 180, 0.35),
+    0 0 38px rgba(225, 48, 108, 0.3),
+    0 0 54px rgba(247, 119, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* Frosted-glass panel — translucent + blurred, with a hairline border so it
+   reads as glass rather than a flat dark box. */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}

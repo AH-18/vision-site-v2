@@ -1,20 +1,11 @@
 import PageHeader from "@/components/PageHeader";
 import Card from "@/components/Card";
 import ProgressBar from "@/components/ProgressBar";
-
-// Placeholder data — swap for the real level system once it's defined.
-const LEVEL = 2;
-const LEVEL_LABEL = "Rising Creator";
-const PROGRESS_PERCENT = 45;
-
-const MILESTONES = [
-  { id: 1, title: "First Post", unlocked: true },
-  { id: 2, title: "5 Posts Streak", unlocked: true },
-  { id: 3, title: "Viral Video", unlocked: false },
-  { id: 4, title: "30-Day Streak", unlocked: false },
-];
+import { LEVELS, getLevelProgress } from "@/lib/levels";
 
 export default function RewardsPage() {
+  const { postsMade, currentLevel, nextLevel, percent } = getLevelProgress();
+
   return (
     <div>
       <PageHeader title="Your" gradientWord="Rewards" subtitle="Level & progress" />
@@ -24,15 +15,24 @@ export default function RewardsPage() {
           <div className="flex items-center justify-between">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-grey-400">
-                Level {LEVEL}
+                {currentLevel ? `Level ${currentLevel.level}` : "Not Started"}
               </span>
-              <h2 className="font-display text-2xl">{LEVEL_LABEL}</h2>
+              <h2 className="font-display text-2xl">
+                {currentLevel ? currentLevel.title : "Post To Begin"}
+              </h2>
             </div>
-            <span className="font-display text-3xl insta-gradient-text">{PROGRESS_PERCENT}%</span>
+            <span className="font-display text-3xl insta-gradient-text">
+              {postsMade} posts
+            </span>
           </div>
           <div className="mt-4">
-            <ProgressBar percent={PROGRESS_PERCENT} />
+            <ProgressBar percent={percent} />
           </div>
+          {nextLevel && (
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-grey-500">
+              {nextLevel.postsRequired - postsMade} posts to &quot;{nextLevel.title}&quot;
+            </p>
+          )}
         </Card>
 
         <Card className="mb-6">
@@ -40,36 +40,35 @@ export default function RewardsPage() {
           <div className="mt-3 aspect-video w-full rounded bg-grey-800" />
         </Card>
 
-        <h2 className="mb-3 font-display text-xl">Milestones</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {MILESTONES.map((m) => (
-            <Card
-              key={m.id}
-              className={`text-center ${m.unlocked ? "" : "opacity-40"}`}
-            >
-              <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full border border-gold/35 bg-gold/5">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="url(#rewardsGrad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="8" r="6" />
-                  <path d="m9 14-1.5 7L12 19l4.5 2L15 14" />
-                </svg>
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-grey-300">
-                {m.title}
-              </span>
-            </Card>
-          ))}
+        <h2 className="mb-3 font-display text-xl">Levels</h2>
+        <div className="space-y-3">
+          {LEVELS.map((l) => {
+            const unlocked = postsMade >= l.postsRequired;
+            return (
+              <Card
+                key={l.level}
+                className={`flex items-center gap-4 py-4 ${unlocked ? "" : "opacity-50"}`}
+              >
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border font-display text-lg ${
+                    unlocked
+                      ? "border-gold/50 insta-gradient-text"
+                      : "border-grey-700 text-grey-500"
+                  }`}
+                >
+                  {l.level}
+                </div>
+                <div>
+                  <p className="text-sm text-grey-100">{l.title}</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-grey-500">
+                    Your first {l.postsRequired} posts
+                  </p>
+                </div>
+              </Card>
+            );
+          })}
         </div>
       </div>
-
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          <linearGradient id="rewardsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#833AB4" />
-            <stop offset="50%" stopColor="#E1306C" />
-            <stop offset="100%" stopColor="#FCAF45" />
-          </linearGradient>
-        </defs>
-      </svg>
     </div>
   );
 }

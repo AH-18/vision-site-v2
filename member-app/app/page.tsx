@@ -1,15 +1,11 @@
+import Link from "next/link";
 import Card from "@/components/Card";
 import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
+import { getLevelProgress } from "@/lib/levels";
+import { SEQUENCES } from "@/lib/sequences";
 
 // Placeholder data — swap for real records once the DB is wired up.
-const OTHER_SEQUENCES = [
-  { id: 1, title: "Top of Funnel" },
-  { id: 2, title: "Middle of Funnel" },
-  { id: 3, title: "Bottom of Funnel" },
-  { id: 4, title: "Introduce Yourself" },
-];
-
 const VIRAL_VIDEOS = [
   { id: 1, title: "Viral Video #1" },
   { id: 2, title: "Viral Video #2" },
@@ -22,18 +18,37 @@ const USERS_TO_WATCH = [
   { id: 3, name: "Creator Three", handle: "@creator_three" },
 ];
 
+// Placeholder pick — real logic (level/quiz-based) comes later.
+const SUGGESTED_SEQUENCE = SEQUENCES[0];
+const OTHER_SEQUENCES = SEQUENCES.filter((s) => s.id !== SUGGESTED_SEQUENCE.id);
+
 export default function HomePage() {
+  const { postsMade, currentLevel, nextLevel, percent } = getLevelProgress();
+
   return (
     <div className="px-6">
       <PageHeader title="Welcome Back," gradientWord="Creator" />
 
-      {/* 1. Track progress */}
+      {/* 1. Track progress — same source as the Rewards page */}
       <Card className="mb-6">
-        <h2 className="font-display text-2xl">Your Progress</h2>
-        <div className="mt-3">
-          <ProgressBar percent={45} />
+        <div className="flex items-center justify-between">
+          <h2 className="font-display text-2xl">Your Progress</h2>
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-grey-400">
+            {currentLevel ? `Level ${currentLevel.level}` : "Not Started"}
+          </span>
         </div>
-        <p className="mt-2 text-sm text-grey-300">Level 2 · Rising Creator</p>
+        <div className="mt-3">
+          <ProgressBar percent={percent} />
+        </div>
+        <p className="mt-2 text-sm text-grey-300">
+          {currentLevel ? currentLevel.title : "Post To Begin"}
+          {nextLevel && (
+            <span className="text-grey-500">
+              {" "}
+              · {nextLevel.postsRequired - postsMade} posts to &quot;{nextLevel.title}&quot;
+            </span>
+          )}
+        </p>
       </Card>
 
       {/* 2. This week's highlights */}
@@ -49,21 +64,39 @@ export default function HomePage() {
         <h2 className="mb-3 font-display text-2xl">
           Suggested <span className="insta-gradient-text">Sequence</span>
         </h2>
-        <Card>
-          <p className="text-sm text-grey-300">Based on your level & choice — placeholder</p>
-        </Card>
+        <Link href={`/sequences/${SUGGESTED_SEQUENCE.id}`}>
+          <Card>
+            <div className="flex items-center justify-between">
+              <h3 className="font-display text-xl">{SUGGESTED_SEQUENCE.title}</h3>
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-grey-500">
+                {SUGGESTED_SEQUENCE.goal}
+              </span>
+            </div>
+            <p className="mt-2 text-sm text-grey-300">{SUGGESTED_SEQUENCE.description}</p>
+          </Card>
+        </Link>
       </section>
 
       {/* 4. Other sequences */}
       <section className="mb-6">
-        <h2 className="mb-3 font-display text-2xl">Other Sequences</h2>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="font-display text-2xl">Other Sequences</h2>
+          <Link
+            href="/sequences"
+            className="font-mono text-[10px] uppercase tracking-[0.15em] text-grey-400"
+          >
+            View All
+          </Link>
+        </div>
         <div className="flex gap-3 overflow-x-auto pb-1">
           {OTHER_SEQUENCES.map((s) => (
-            <Card key={s.id} className="w-40 shrink-0">
-              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-grey-200">
-                {s.title}
-              </span>
-            </Card>
+            <Link key={s.id} href={`/sequences/${s.id}`}>
+              <Card className="w-40 shrink-0">
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-grey-200">
+                  {s.title}
+                </span>
+              </Card>
+            </Link>
           ))}
         </div>
       </section>

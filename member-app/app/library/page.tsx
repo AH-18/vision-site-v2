@@ -1,59 +1,33 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import FilterChip from "@/components/FilterChip";
-import Card from "@/components/Card";
-
-// Placeholder data — swap for real template records once the DB is wired up.
-const TYPE_FILTERS = ["All", "B-Roll", "Talking", "Carousel"];
-const STYLE_FILTERS = ["All", "Educational", "Nurturing", "Storytelling", "Entertaining"];
-
-const TEMPLATES = [
-  { id: 1, type: "B-Roll", style: "Nurturing", title: "Trend #30", date: "Sep 30" },
-  { id: 2, type: "Talking", style: "Educational", title: "Trend #29", date: "Sep 29" },
-  { id: 3, type: "Carousel", style: "Storytelling", title: "Trend #28", date: "Sep 28" },
-  { id: 4, type: "B-Roll", style: "Entertaining", title: "Trend #27", date: "Sep 27" },
-];
 
 export default function LibraryPage() {
-  const [type, setType] = useState("All");
-  const [style, setStyle] = useState("All");
-
-  const filtered = TEMPLATES.filter(
-    (t) => (type === "All" || t.type === type) && (style === "All" || t.style === style)
-  );
-
   return (
-    <div>
-      <PageHeader title="Content" gradientWord="Library" subtitle="Type · Style" />
+    <div className="flex min-h-[calc(100vh-10rem)] flex-col">
+      <PageHeader title="Content" gradientWord="Library" />
 
-      <div className="space-y-3 px-6">
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {TYPE_FILTERS.map((f) => (
-            <FilterChip key={f} label={f} active={type === f} onClick={() => setType(f)} />
-          ))}
-        </div>
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {STYLE_FILTERS.map((f) => (
-            <FilterChip key={f} label={f} active={style === f} onClick={() => setStyle(f)} />
-          ))}
-        </div>
-      </div>
+      <div className="flex flex-1 items-center justify-center px-6">
+        <div className="grid w-full max-w-xs grid-cols-2 gap-5">
+          <Link
+            href="/library/videos"
+            className="glass-panel insta-gradient-shadow flex aspect-square max-h-40 flex-col items-center justify-center text-center transition-transform duration-200 hover:-translate-y-1"
+          >
+            <span className="font-display text-2xl">Videos</span>
+            <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-grey-400">
+              Browse templates
+            </span>
+          </Link>
 
-      <div className="mt-6 grid grid-cols-2 gap-4 px-6">
-        {filtered.map((t) => (
-          <Card key={t.id} className="flex flex-col gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-gold">
-              {t.type}
+          <Link
+            href="/sequences"
+            className="glass-panel insta-gradient-shadow flex aspect-square max-h-40 flex-col items-center justify-center text-center transition-transform duration-200 hover:-translate-y-1"
+          >
+            <span className="font-display text-2xl">Sequences</span>
+            <span className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-grey-400">
+              Pick a goal
             </span>
-            <div className="aspect-[9/16] w-full rounded bg-grey-800" />
-            <span className="font-display text-lg">{t.title}</span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-grey-500">
-              {t.date} · {t.style}
-            </span>
-          </Card>
-        ))}
+          </Link>
+        </div>
       </div>
     </div>
   );
