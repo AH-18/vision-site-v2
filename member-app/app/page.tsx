@@ -4,13 +4,10 @@ import PageHeader from "@/components/PageHeader";
 import ProgressBar from "@/components/ProgressBar";
 import { getLevelProgress } from "@/lib/levels";
 import { SEQUENCES } from "@/lib/sequences";
+import { getTrendingTemplates } from "@/lib/templates";
 
 // Placeholder data — swap for real records once the DB is wired up.
-const VIRAL_VIDEOS = [
-  { id: 1, title: "Viral Video #1" },
-  { id: 2, title: "Viral Video #2" },
-  { id: 3, title: "Viral Video #3" },
-];
+const VIRAL_VIDEOS = getTrendingTemplates();
 
 const USERS_TO_WATCH = [
   { id: 1, name: "Creator One", handle: "@creator_one" },
@@ -59,7 +56,24 @@ export default function HomePage() {
         </Card>
       </section>
 
-      {/* 3. Suggested sequence, based on level choice */}
+      {/* 3. This week's viral videos */}
+      <section className="mb-6">
+        <h2 className="mb-3 font-display text-2xl">This Week&apos;s Viral Videos</h2>
+        <div className="flex gap-3 overflow-x-auto pb-1">
+          {VIRAL_VIDEOS.map((v) => (
+            <Link key={v.id} href={`/library/videos/${v.id}`}>
+              <Card className="w-32 shrink-0 p-0 overflow-hidden">
+                <div className="aspect-[9/16] w-full bg-grey-800" />
+                <span className="block px-2 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-grey-300">
+                  {v.title}
+                </span>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Suggested sequence, based on level choice */}
       <section className="mb-6">
         <h2 className="mb-3 font-display text-2xl">
           Suggested <span className="insta-gradient-text">Sequence</span>
@@ -77,7 +91,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* 4. Other sequences */}
+      {/* 5. Other sequences */}
       <section className="mb-6">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-display text-2xl">Other Sequences</h2>
@@ -101,22 +115,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. This week's viral videos */}
-      <section className="mb-6">
-        <h2 className="mb-3 font-display text-2xl">This Week&apos;s Viral Videos</h2>
-        <div className="flex gap-3 overflow-x-auto pb-1">
-          {VIRAL_VIDEOS.map((v) => (
-            <Card key={v.id} className="w-32 shrink-0 p-0 overflow-hidden">
-              <div className="aspect-[9/16] w-full bg-grey-800" />
-              <span className="block px-2 py-2 font-mono text-[10px] uppercase tracking-[0.15em] text-grey-300">
-                {v.title}
-              </span>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. Users to watch */}
+      {/* 6. Users to watch (unchanged position) */}
       <section className="mb-6">
         <h2 className="mb-3 font-display text-2xl">Users To Watch</h2>
         <div className="space-y-3">
