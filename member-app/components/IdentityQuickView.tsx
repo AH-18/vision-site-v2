@@ -27,11 +27,11 @@ export default function IdentityQuickView() {
         onClick={() => setOpen((v) => !v)}
         aria-label="View My Identity"
         aria-expanded={open}
-        className="fixed right-6 top-20 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-grey-700 bg-grey-950/90 backdrop-blur transition-colors hover:border-gold/50"
+        className="fixed right-6 top-20 z-40 flex items-center gap-1.5 rounded-full border border-grey-700 bg-grey-950/90 px-3 py-2 backdrop-blur transition-colors hover:border-gold/50"
       >
         <svg
-          width="18"
-          height="18"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -43,6 +43,11 @@ export default function IdentityQuickView() {
           <path d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2Z" />
           <path d="M9 21h6" />
         </svg>
+        <span
+          className={`font-mono text-[10px] uppercase tracking-[0.15em] ${open ? "text-gold" : "text-grey-200"}`}
+        >
+          My Identity
+        </span>
       </button>
 
       {open && (
