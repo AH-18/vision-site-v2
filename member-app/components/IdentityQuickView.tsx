@@ -27,7 +27,7 @@ export default function IdentityQuickView() {
         onClick={() => setOpen((v) => !v)}
         aria-label="View My Identity"
         aria-expanded={open}
-        className="insta-gradient-bg fixed right-6 top-20 z-40 flex items-center gap-1.5 rounded-full px-3 py-2 text-white shadow-[0_0_14px_rgba(225,48,108,0.35)] transition-transform hover:scale-[1.03]"
+        className="fixed right-6 top-20 z-40 flex items-center gap-1.5 rounded-full border border-gold/60 bg-grey-950/90 px-3 py-2 text-gold shadow-[0_0_14px_rgba(225,48,108,0.35)] backdrop-blur transition-colors hover:border-gold hover:shadow-[0_0_20px_rgba(225,48,108,0.5)]"
       >
         <svg
           width="16"
@@ -38,12 +38,12 @@ export default function IdentityQuickView() {
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-white"
+          className="text-gold"
         >
           <path d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2Z" />
           <path d="M9 21h6" />
         </svg>
-        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white">
+        <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-gold">
           My Identity
         </span>
       </button>
