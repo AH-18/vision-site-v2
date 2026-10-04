@@ -144,13 +144,22 @@ export default function ReviewVideoPage() {
           <div className="mt-2 space-y-1.5 text-sm text-grey-200">
             <p>
               <span className="text-grey-500">Account:</span> {video.account}
+              {video.source === "manual" && (
+                <span className="ml-2 font-mono text-[9px] uppercase tracking-[0.15em] text-gold/70">
+                  Added manually
+                </span>
+              )}
             </p>
-            <p>
-              <span className="text-grey-500">Views:</span> {video.views.toLocaleString()}
-            </p>
-            <p>
-              <span className="text-grey-500">Caption:</span> {video.caption}
-            </p>
+            {video.views > 0 && (
+              <p>
+                <span className="text-grey-500">Views:</span> {video.views.toLocaleString()}
+              </p>
+            )}
+            {video.caption && (
+              <p>
+                <span className="text-grey-500">Caption:</span> {video.caption}
+              </p>
+            )}
             {video.audio && (
               <p>
                 <span className="text-grey-500">Audio:</span> {video.audio}

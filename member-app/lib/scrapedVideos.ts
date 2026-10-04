@@ -21,6 +21,8 @@ export interface ScrapedVideo {
   status: ScrapedVideoStatus;
   /** Set once this video has been pushed, so the review page can link to the live template. */
   pushedTemplateId?: string;
+  /** "scraped" = came in through the n8n/Apify job. "manual" = a team member added it by hand. */
+  source: "scraped" | "manual";
 }
 
 const STORAGE_KEY = "vision_scraped_videos";
@@ -36,6 +38,7 @@ const SEED_VIDEOS: ScrapedVideo[] = [
     audio: "Soft Piano Loop — trending audio",
     scrapedAt: "2026-10-04",
     status: "pending_review",
+    source: "scraped",
   },
   {
     id: "scrape-2",
@@ -46,6 +49,7 @@ const SEED_VIDEOS: ScrapedVideo[] = [
     audio: "Talking Head Beat",
     scrapedAt: "2026-10-04",
     status: "pending_review",
+    source: "scraped",
   },
   {
     id: "scrape-3",
@@ -56,6 +60,7 @@ const SEED_VIDEOS: ScrapedVideo[] = [
     audio: "Lo-fi Morning",
     scrapedAt: "2026-10-03",
     status: "pending_review",
+    source: "scraped",
   },
   {
     id: "scrape-4",
@@ -66,6 +71,7 @@ const SEED_VIDEOS: ScrapedVideo[] = [
     audio: "Upbeat Viral Sound",
     scrapedAt: "2026-10-03",
     status: "pending_review",
+    source: "scraped",
   },
 ];
 
@@ -110,4 +116,25 @@ export function updateScrapedVideoStatus(
     v.id === id ? { ...v, status, pushedTemplateId } : v
   );
   saveScrapedVideos(videos);
+}
+
+/**
+ * Adds a video a team member picked by hand (not from the Apify pull) and
+ * drops it into the same pending-review queue, so it goes through the exact
+ * same write-up + checklist + Accept/Reject flow as a scraped one.
+ */
+export function addManualScrapedVideo(input: { account: string; videoUrl: string }): ScrapedVideo {
+  const video: ScrapedVideo = {
+    id: `manual-${Date.now()}`,
+    account: input.account,
+    videoUrl: input.videoUrl,
+    views: 0,
+    caption: "",
+    scrapedAt: new Date().toISOString().slice(0, 10),
+    status: "pending_review",
+    source: "manual",
+  };
+  const videos = [video, ...loadScrapedVideos()];
+  saveScrapedVideos(videos);
+  return video;
 }
