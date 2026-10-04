@@ -315,7 +315,7 @@ export default function ReviewVideoPage() {
             type="button"
             onClick={handleApprove}
             disabled={!readyToPush}
-            className="flex-1 rounded-full border border-gold/60 bg-grey-950/90 py-3 font-mono text-xs uppercase tracking-[0.2em] text-gold shadow-[0_0_14px_rgba(225,48,108,0.35)] backdrop-blur transition-colors hover:border-gold hover:shadow-[0_0_20px_rgba(225,48,108,0.5)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
+            className="flex-1 rounded-full border border-gold/60 bg-grey-950/90 py-3 font-mono text-xs uppercase tracking-[0.2em] text-gold shadow-[0_0_14px_rgba(225,48,108,0.35)] backdrop-blur transition-colors hover:border-gold hover:shadow-[0_0_20px_rgba(225,48,108,0.5)] disabled:cursor-not-allowed"
           >
             Accept
           </button>
