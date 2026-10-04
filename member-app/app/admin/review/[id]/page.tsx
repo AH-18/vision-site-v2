@@ -317,7 +317,7 @@ export default function ReviewVideoPage() {
             disabled={!readyToPush}
             className="flex-1 rounded-full border border-gold/60 bg-grey-950/90 py-3 font-mono text-xs uppercase tracking-[0.2em] text-gold shadow-[0_0_14px_rgba(225,48,108,0.35)] backdrop-blur transition-colors hover:border-gold hover:shadow-[0_0_20px_rgba(225,48,108,0.5)] disabled:cursor-not-allowed disabled:opacity-30 disabled:shadow-none"
           >
-            Approve &amp; Push
+            Accept
           </button>
         </div>
       </div>
