@@ -1,18 +1,35 @@
-import { notFound } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Card from "@/components/Card";
 import IdentityQuickView from "@/components/IdentityQuickView";
-import { getTemplateById } from "@/lib/templates";
+import { getAllTemplates, type Template } from "@/lib/templates";
 
-export default async function TemplateDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const template = getTemplateById(id);
+export default function TemplateDetailPage() {
+  const { id } = useParams<{ id: string }>();
+  const [template, setTemplate] = useState<Template | null | undefined>(undefined);
 
-  if (!template) notFound();
+  // Pushed templates (from the Review GUI) live in localStorage, so look the
+  // template up client-side after mount rather than as a server component.
+  useEffect(() => {
+    setTemplate(getAllTemplates().find((t) => t.id === id) ?? null);
+  }, [id]);
+
+  if (template === undefined) return null;
+
+  if (template === null) {
+    return (
+      <div className="px-6 py-16 text-center">
+        <p className="text-sm text-grey-300">Couldn&apos;t find that template.</p>
+        <Link href="/library/videos" className="mt-3 inline-block text-sm text-gold underline">
+          Back to Videos
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -68,11 +85,25 @@ export default async function TemplateDetailPage({
             Niche Examples
           </span>
           <ul className="mt-2 space-y-1.5">
-            {template.nicheExamples.map((example, i) => (
-              <li key={i} className="text-sm text-grey-200">
-                🔗 {example}
-              </li>
-            ))}
+            {template.nicheExamples.map((example, i) => {
+              const isLink = /^https?:\/\//.test(example);
+              return (
+                <li key={i} className="text-sm text-grey-200">
+                  {isLink ? (
+                    <a
+                      href={example}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gold underline decoration-dotted underline-offset-4 transition-colors hover:text-white"
+                    >
+                      🔗 View example reel ↗
+                    </a>
+                  ) : (
+                    <>🔗 {example}</>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </Card>
 

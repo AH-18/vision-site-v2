@@ -5,7 +5,8 @@ import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import FilterChip from "@/components/FilterChip";
 import Card from "@/components/Card";
-import { TEMPLATES } from "@/lib/templates";
+import { useEffect } from "react";
+import { getAllTemplates, type Template } from "@/lib/templates";
 
 const TYPE_FILTERS = ["All", "B-Roll", "Talking", "Carousel", "Voiceover", "Green Screen"];
 const STYLE_FILTERS = ["All", "Educational", "Nurturing", "Storytelling", "Entertaining"];
@@ -13,8 +14,14 @@ const STYLE_FILTERS = ["All", "Educational", "Nurturing", "Storytelling", "Enter
 export default function LibraryVideosPage() {
   const [type, setType] = useState("All");
   const [style, setStyle] = useState("All");
+  const [templates, setTemplates] = useState<Template[]>([]);
 
-  const filtered = TEMPLATES.filter(
+  // Pushed templates live in localStorage, so load client-side after mount.
+  useEffect(() => {
+    setTemplates(getAllTemplates());
+  }, []);
+
+  const filtered = templates.filter(
     (t) => (type === "All" || t.format === type) && (style === "All" || t.pillar === style)
   );
 

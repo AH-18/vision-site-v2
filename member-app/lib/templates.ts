@@ -47,7 +47,7 @@ export const TEMPLATES: Template[] = [
     textOnScreen:
       "pov: you're a [describe your ideal follower] who wants to [achieve result] without [disliked thing]",
     nicheExamples: [
-      "instagram.com/reel/niche-example-1",
+      "https://www.instagram.com/reels/DdSfBtSzIMo/",
       "instagram.com/reel/niche-example-2",
       "instagram.com/reel/niche-example-3",
     ],
@@ -138,9 +138,50 @@ export const TEMPLATES: Template[] = [
 ];
 
 export function getTemplateById(id: string): Template | undefined {
-  return TEMPLATES.find((t) => t.id === id);
+  return getAllTemplates().find((t) => t.id === id);
 }
 
 export function getTrendingTemplates(): Template[] {
-  return TEMPLATES.filter((t) => t.trending);
+  return getAllTemplates().filter((t) => t.trending);
+}
+
+// --- Templates pushed live from the staff Review GUI -----------------------
+// Until a real templates table exists, approved templates are persisted to
+// localStorage (same temporary pattern as lib/brandProfile.ts) and merged in
+// alongside the hardcoded TEMPLATES above. See claude/content-ops-workflow.md
+// for the full n8n -> Apify -> Review GUI -> live pipeline this is part of.
+
+const PUSHED_STORAGE_KEY = "vision_pushed_templates";
+
+function isBrowser() {
+  return typeof window !== "undefined";
+}
+
+export function loadPushedTemplates(): Template[] {
+  if (!isBrowser()) return [];
+  try {
+    const raw = window.localStorage.getItem(PUSHED_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as Template[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Appends a reviewed template to the live set and returns it, ready to use. */
+export function pushTemplate(template: Template): Template {
+  const existing = loadPushedTemplates();
+  const next = [template, ...existing];
+  if (isBrowser()) {
+    try {
+      window.localStorage.setItem(PUSHED_STORAGE_KEY, JSON.stringify(next));
+    } catch {
+      // localStorage unavailable — fail silently, same as brandProfile.ts
+    }
+  }
+  return template;
+}
+
+/** Hardcoded templates + anything approved through the Review GUI. */
+export function getAllTemplates(): Template[] {
+  return [...loadPushedTemplates(), ...TEMPLATES];
 }
