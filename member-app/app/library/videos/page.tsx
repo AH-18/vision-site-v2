@@ -8,7 +8,17 @@ import Card from "@/components/Card";
 import { useEffect } from "react";
 import { getAllTemplates, type Template } from "@/lib/templates";
 
-const TYPE_FILTERS = ["All", "B-Roll", "Talking", "Carousel", "Voiceover", "Green Screen"];
+const TYPE_FILTERS = [
+  "All",
+  "B-Roll",
+  "Talking",
+  "Carousel",
+  "Voiceover",
+  "Green Screen",
+  "Vlog",
+  "No Face",
+  "Heavy Edit",
+];
 const STYLE_FILTERS = ["All", "Educational", "Nurturing", "Storytelling", "Entertaining"];
 
 export default function LibraryVideosPage() {
