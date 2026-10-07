@@ -4,7 +4,15 @@
 // Composition Guide, suggested audios, Text-on-screen with [placeholders],
 // Niche Examples, and Caption Outline variants.
 
-export type TemplateFormat = "B-Roll" | "Talking" | "Carousel" | "Voiceover" | "Green Screen";
+export type TemplateFormat =
+  | "B-Roll"
+  | "Talking"
+  | "Carousel"
+  | "Voiceover"
+  | "Green Screen"
+  | "Vlog"
+  | "No Face"
+  | "Heavy Edit";
 export type TemplatePillar = "Educational" | "Nurturing" | "Storytelling" | "Entertaining";
 
 export interface Template {

@@ -18,7 +18,16 @@ import {
   type TemplatePillar,
 } from "@/lib/templates";
 
-const FORMATS: TemplateFormat[] = ["B-Roll", "Talking", "Carousel", "Voiceover", "Green Screen"];
+const FORMATS: TemplateFormat[] = [
+  "B-Roll",
+  "Talking",
+  "Carousel",
+  "Voiceover",
+  "Green Screen",
+  "Vlog",
+  "No Face",
+  "Heavy Edit",
+];
 const PILLARS: TemplatePillar[] = ["Educational", "Nurturing", "Storytelling", "Entertaining"];
 
 function slugify(text: string) {
